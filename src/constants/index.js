@@ -15,15 +15,6 @@ import {
     nginx,
     sweng,
     connect,
-    stethup1,
-    stethup2,
-    stethup3,
-    aloy1,
-    aloy2,
-    aloy3,
-    hmo,
-    hmo1,
-    hmo2,
     framer
   } from "../assets";
   
@@ -160,116 +151,21 @@ import {
       name: "stethUP",
       description:
         "stethUP is a revolutionary online platform designed to unify healthcare professionals, organizations,and institutions, facilitating seamless communication, collaboration, and knowledge sharing across the healthcare industry.",
-      tags: [
-        {
-          name: "react js",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "redux",
-          color: "green-text-gradient",
-        },
-        {
-          name: "bootstrap",
-          color: "orange-text-gradient",
-        },
-        {
-          name: "scss",
-          color: "pink-text-gradient",
-        },
-      ],
-      images: [
-        {
-          id: "1",
-          name: stethup1,
-         
-        },
-        {
-          id: "2",
-          name: stethup2,
-        
-        },
-        {
-          id: "3",
-          name: stethup3,
-         
-        },
-      ],
-      source_code_link: "https://www.stethup.ai/",
+    
+  
     },
     {
       name: "Aloy",
       description:
         "With Aloy.ai, you can humanize your entire customer journey by adding a personal touch to it without having to sit in front of a camera and record every single video.",
-      tags: [
-        {
-          name: "react js",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "node js",
-          color: "green-text-gradient",
-        },
-        {
-          name: "react-bootstrap",
-          color: "pink-text-gradient",
-        },
-      ],
-      images: [
-        {
-          id: "4",
-          name: aloy1,
-         
-        },
-        {
-          id: "5",
-          name: aloy2,
-        
-        },
-        {
-          id: "6",
-          name: aloy3,
-         
-        },
-      ],
-      source_code_link: "https://aloy.ai/",
+     
+  
     },
     {
       name: "Help Me Online",
       description:
         "Help Me Online(HMO) is a online Crowd Funding Platform across the India to raise the funds and donate for the people who are in need.",
-      tags: [
-        {
-          name: "react js",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "bootstrap",
-          color: "green-text-gradient",
-        },
-        {
-          name: "css",
-          color: "pink-text-gradient",
-        },
-      ],
-      images: [
-        {
-          id: "7",
-          name: hmo,
-         
-        },
-        {
-          id: "8",
-          name: hmo1,
-        
-        },
-        {
-          id: "9",
-          name: hmo2,
-         
-        },
-      ],
-      source_code_link: "https://api-dot-swengsolutions-282915.df.r.appspot.com/",
+     
     },
   ];
   

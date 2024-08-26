@@ -1,38 +1,17 @@
-import React, {useState} from "react";
+import React from "react";
 import { motion } from "framer-motion";
-
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import { CustomLeftCarousel, CustomRightCarousel } from "../utils/CustomArrow";
-import { HiViewGrid } from "react-icons/hi";
 
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 1,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 1,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  }
-};
 
 
 const ProjectCard = ({
   index,
   name,
   description,
-  tags,
-  images,
-  source_code_link,
+ 
 }) => {
 
 

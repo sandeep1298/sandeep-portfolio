@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import { Tooltip } from "react-tooltip";
 import Loader from "./utils/Loader";
 import {Toaster} from 'react-hot-toast'
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 function App() {
   
@@ -47,6 +48,7 @@ function App() {
     <>
      {isLoading ? <Loader/>:(
     <div className=" w-full overflow-hidden">
+       <SpeedInsights />
      <BrowserRouter>
         <div className="relative z-0 bg-primary w-full ">
           <div className='bg-hero-pattern bg-cover bg-no-repeat bg-center'>

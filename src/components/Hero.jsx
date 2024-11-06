@@ -43,7 +43,7 @@ const Hero = () => {
         </div>
         <div className="flex-grow small_grow_none"></div>
         <div className='   width_in_pixels h-full  height_small_screen  lg:block'>
-        <ComputersCanvas />
+       
       </div>
       </div>
    

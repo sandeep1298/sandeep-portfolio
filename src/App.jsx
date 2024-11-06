@@ -1,28 +1,37 @@
 import { BrowserRouter } from "react-router-dom";
-
-import {  Contact, Experience, Hero, Navbar, Tech, Works, StarsCanvas } from "./components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { rocket } from "./assets";
 import Footer from "./components/Footer";
 import { Tooltip } from "react-tooltip";
 import Loader from "./utils/Loader";
-import {Toaster} from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
+// Lazy loading components
+const Contact = lazy(() => import("./components/Contact"));
+const Experience = lazy(() => import("./components/Experience"));
+const Hero = lazy(() => import("./components/Hero"));
+const Navbar = lazy(() => import("./components/Navbar"));
+const Tech = lazy(() => import("./components/Tech"));
+const Works = lazy(() => import("./components/Works"));
+const StarsCanvas = lazy(() => import("./components/canvas/Stars.jsx"));
 function App() {
-  
   const [showBackToTop, setShowBackToTop] = useState(false);
-
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    setIsLoading(false)
-  }, []) 
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); // 2000 ms = 2 seconds
+  
+    // Cleanup the timeout when the component is unmounted or the effect runs again
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 500) {
         setShowBackToTop(true);
-        
       } else {
         setShowBackToTop(false);
         setShowanim(false);
@@ -36,80 +45,74 @@ function App() {
     };
   }, []);
 
-  const [showanim, setShowanim] = useState(false)
+  const [showanim, setShowanim] = useState(false);
 
   const handleBackToTop = () => {
-    setShowanim(true)
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  
+    setShowanim(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <>
-     {isLoading ? <Loader/>:(
-    <div className=" w-full overflow-hidden">
-       <SpeedInsights />
-     <BrowserRouter>
-        <div className="relative z-0 bg-primary w-full ">
-          <div className='bg-hero-pattern bg-cover bg-no-repeat bg-center'>
-          <Navbar />
-          <div className='relative z-0'>
-          <Hero />
-          <StarsCanvas />
-          </div>
+      {isLoading ? <Loader /> : (
+        <div className="w-full overflow-hidden">
+          <SpeedInsights />
+          <BrowserRouter>
+            <div className="relative z-0 bg-primary w-full">
+              <div className='bg-hero-pattern bg-cover bg-no-repeat bg-center'>
+                <Suspense fallback={<Loader />}>
+                  <Navbar />
+                  <div className='relative z-0'>
+                    <Hero />
+                    <StarsCanvas />
+                  </div>
+                </Suspense>
+              </div>
+              <div className="mt-12">
+                <Suspense fallback={<Loader />}>
+                  <Tech />
+                  <Experience />
+                  <Works />
+                </Suspense>
+              </div>
+              <div className='relative z-0 mb-10'>
+                <Suspense fallback={<Loader />}>
+                  <Contact />
+                  <StarsCanvas />
+                </Suspense>
+              </div>
+              <hr className="line_custom" />
+              <Suspense fallback={<Loader />}>
+                <Footer />
+              </Suspense>
+            </div>
+          </BrowserRouter>
+          {showBackToTop && (
+            <>
+              <button
+                className={`fixed bottom-4 right-4 p-2 cursor-pointer backToTop ${showanim ? "backToTopchange" : "backToTop"}`}
+                onClick={handleBackToTop}
+                data-tooltip-id="scroll-to-top"
+                data-tooltip-content="Go To Top"
+              >
+                <img src={rocket} />
+              </button>
+              {showanim === false ? <Tooltip id="scroll-to-top" className="tooltip_custom" place="top-end" /> : null}
+            </>
+          )}
         </div>
-       <div className="mt-12">
-        <Tech />
-        <Experience />
-        <Works />
-       
-        </div>
-         <div className='relative z-0 mb-10 '>
-          <Contact />
-          <StarsCanvas />
-        </div>  
-        <hr className="line_custom"/>
-        <Footer />
-        </div>
-     </BrowserRouter>
-     {showBackToTop && (
-      <>
-        <button
-        className={`fixed bottom-4 right-4 p-2  cursor-pointer backToTop ${showanim ? "backToTopchange" : "backToTop"}`}
-        
-          onClick={handleBackToTop}
-          data-tooltip-id="scroll-to-top"
-                  data-tooltip-content="Go To Top"
-        >
-         
-          <img src={rocket} />
-         
-        </button>
-        {showanim === false ?
-         <Tooltip id="scroll-to-top" className="tooltip_custom" place="top-end" />
-         : null
-        }
-         </>
       )}
-      </div>
-     )
-    }
-    <Toaster
+
+      <Toaster
         position="top-center"
         reverseOrder={false}
-       
-        containerClassName=""
-       
         toastOptions={{
-          // Define default options
           className: "w-100",
           duration: 5000,
           style: {
             background: "#ffff",
             color: "black",
-         
-        },
-          // Default options for specific types
+          },
           success: {
             duration: 3000,
             theme: {
@@ -127,7 +130,7 @@ function App() {
         }}
       />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

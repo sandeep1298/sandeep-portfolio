@@ -1,14 +1,11 @@
-import React, { Suspense , useEffect, useRef, useState} from "react";
-import { Canvas ,useFrame } from "@react-three/fiber";
+import React, { Suspense, useEffect, useRef, useState, useMemo } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import { AnimationMixer } from "three";
 import CanvasLoader from "../Loader";
 
 const Earth = ({ isMobile }) => {
-  const { scene, nodes, materials,animations } = useGLTF("./drone/scene.gltf");
- 
-  
-
+  const { scene, animations } = useGLTF("./drone/scene.gltf");
   const mixer = useRef(null);
 
   useEffect(() => {
@@ -18,38 +15,35 @@ const Earth = ({ isMobile }) => {
         const action = mixer.current.clipAction(clip);
         action.play();
       });
-      //console.log("Animations loaded:", animations);
-    } else {
-     // console.log("No animations found in the GLTF file.");
     }
   }, [animations, scene]);
 
   useFrame((_, delta) => {
     if (mixer.current) {
       mixer.current.update(delta);
-      //console.log("Mixer updated with delta:", delta);
     }
   });
 
+  const scale = useMemo(() => (isMobile ? 0.9 : 1.3), [isMobile]); // Dynamic scaling based on screen size
+
   return (
-    
     <mesh>
-      <hemisphereLight intensity={8} groundColor='black' />
+      <hemisphereLight intensity={isMobile ? 4 : 8} groundColor="black" />
       <spotLight
         position={[-20, 50, 10]}
         angle={0.12}
         penumbra={1}
-       
-        castShadow
-      
+        intensity={isMobile ? 0.5 : 1}
+        castShadow={!isMobile} // Disable shadows for mobile to boost performance
       />
-      <pointLight intensity={8} />
-    <primitive object={scene} scale={1.3} 
-      
-    
-    position={isMobile ? [0, 0, 0] : [0, 0, 0]} rotation={[0, -20, 0]} />
+      <pointLight intensity={isMobile ? 3 : 8} />
+      <primitive
+        object={scene}
+        scale={scale}
+        position={isMobile ? [0, 0, 0] : [0, 0, 0]}
+        rotation={[0, -20, 0]}
+      />
     </mesh>
-  
   );
 };
 
@@ -57,56 +51,39 @@ const EarthCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Add a listener for changes to the screen size
     const mediaQuery = window.matchMedia("(max-width: 500px)");
-
-    // Set the initial value of the `isMobile` state variable
     setIsMobile(mediaQuery.matches);
 
-    // Define a callback function to handle changes to the media query
-    const handleMediaQueryChange = (event) => {
-      setIsMobile(event.matches);
-    };
-
-    // Add the callback function as a listener for changes to the media query
+    const handleMediaQueryChange = (event) => setIsMobile(event.matches);
     mediaQuery.addEventListener("change", handleMediaQueryChange);
 
-    // Remove the listener when the component is unmounted
-    return () => {
-      mediaQuery.removeEventListener("change", handleMediaQueryChange);
-    };
+    return () => mediaQuery.removeEventListener("change", handleMediaQueryChange);
   }, []);
 
- 
   return (
     <Canvas
       shadows
-      frameloop='demand'
-      dpr={[1, 2]}
-      gl={{ preserveDrawingBuffer: true }}
+      frameloop="demand" // Optimize by rendering only when necessary
+      dpr={[isMobile ? 0.5 : 1, 2]} // Reduce dpr for mobile to save resources
+      gl={{ antialias: !isMobile, preserveDrawingBuffer: true }} // Disable antialiasing for mobile
       camera={{
-        fov: 45,
+        fov: isMobile ? 45 : 60, // Adjust camera for mobile to optimize view
         near: 0.1,
         far: 200,
-        position: [-4, 3, 6],
+        position: [isMobile ? -3 : -4, isMobile ? 2 : 3, isMobile ? 4 : 6], // Adjust position for mobile
       }}
     >
-    
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
-        
-           enableZoom={false}
-           maxPolarAngle={Math.PI / 2 }
-           minPolarAngle={Math.PI / 2 }
-           autoRotate={true}
-        
-          autoRotateSpeed={0.5}
+          enableZoom={false}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+          autoRotate={!isMobile} // Disable auto-rotate for mobile
+          autoRotateSpeed={isMobile ? 0.2 : 0.5} // Reduce speed for mobile
         />
         <Earth isMobile={isMobile} />
-
-       
       </Suspense>
-      <Preload  all  />
+      <Preload all />
     </Canvas>
   );
 };

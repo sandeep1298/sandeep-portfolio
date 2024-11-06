@@ -16,8 +16,8 @@ const Stars = (props) => {
   // Rotate particles using useFrame
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.rotation.x += delta * 0.025; // Reduced speed
-      ref.current.rotation.y += delta * 0.025; // Reduced speed
+      ref.current.rotation.x += delta * 0.020; // Reduced speed
+      ref.current.rotation.y += delta * 0.020; // Reduced speed
     }
   });
 

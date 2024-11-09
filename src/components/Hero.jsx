@@ -51,7 +51,7 @@ const Hero = () => {
     
      
       <div className='absolute xs:bottom-10 bottom-5 w-full flex display_none justify-center items-center cursor-pointer '>
-        <a href='#tech' >
+        <a href='#tech' aria-label="Scroll down to technology section">
           <div className='w-[35px] h-[64px] width_top_bottom rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
             <motion.div
               animate={{

@@ -135,10 +135,26 @@ const Contact = () => {
           <div className="flex-grow"></div>
             <div className="flex   gap-6 ">
              
-           <a className="linked_in_icon" href="https://www.linkedin.com/in/sandeep-m-4129ab172/"   rel="noreferrer"
-                                    target="_blank"> <FaLinkedinIn  /> </a>
-            <a className="whatsapp_icon" href="https://wa.me/9481068352"   rel="noreferrer"
-                                    target="_blank"> <IoLogoWhatsapp  />  </a>
+            <a
+  className="linked_in_icon"
+  href="https://www.linkedin.com/in/sandeep-m-4129ab172/"
+  rel="noreferrer"
+  target="_blank"
+  aria-label="Visit Sandeep M's LinkedIn profile"
+>
+  <FaLinkedinIn />
+</a>
+
+<a
+  className="whatsapp_icon"
+  href="https://wa.me/9481068352"
+  rel="noreferrer"
+  target="_blank"
+  aria-label="Chat with Sandeep M on WhatsApp"
+>
+  <IoLogoWhatsapp />
+</a>
+
            
 
             </div>

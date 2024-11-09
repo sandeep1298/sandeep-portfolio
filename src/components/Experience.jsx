@@ -10,9 +10,9 @@ import "react-vertical-timeline-component/style.min.css";
 import { styles } from "../styles";
 import { experiences } from "../constants";
 import { SectionWrapper } from "../hoc";
-import { textVariant } from "../utils/motion";
 
-const ExperienceCard = ({ experience }) => {
+
+const ExperienceCard = React.memo(({ experience }) => {
   return (
     <VerticalTimelineElement
       contentStyle={{
@@ -26,6 +26,7 @@ const ExperienceCard = ({ experience }) => {
         <div className='flex justify-center items-center w-full h-full'>
           <img
             src={experience.icon}
+              loading="lazy"
             alt={experience.company_name}
             className='w-[60%] h-[60%] object-contain'
           />
@@ -54,7 +55,9 @@ const ExperienceCard = ({ experience }) => {
       </ul>
     </VerticalTimelineElement>
   );
-};
+});
+
+ExperienceCard.displayName = "ExperienceCard";
 
 const Experience = () => {
   return (

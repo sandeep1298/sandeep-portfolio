@@ -100,7 +100,6 @@ import {
       iconBg: "#383E56",
       date: "September 2020 - July 2021",
       points: [
-        "Worked extensively with frontend technologies, specializing in web design and development.",
       "Developed a Progressive Web Application to assist medical aid and natural disaster relief, including donations for individuals affected by COVID-19."
       ],
     },
@@ -116,32 +115,19 @@ import {
       ],
     },
     {
-      title: "Software Developer",
+      title: "Software Developer → Team Lead",
       company_name: "Jireh Software Solutions",
       icon: jireh,
       iconBg: "#ffff",
-      date: "Feb 2023 - Mar 2024",
+      date: "Feb 2023 - Mar 2025",
       points: [
         "Developed a healthcare platform for B2C and B2B, allowing users to create and sell courses, with individual dashboards for instructors and learners, and the ability to organize online or offline events.",
         "Collaborating with cross-functional teams including designers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
         "Implemented a chat interface for health-related queries and solutions.",
-        "Solved major challenges that occurred during development and assisted other team members during difficult times to resolve issues."
-      ],
-    },
-    {
-      title: "Team Lead",
-      company_name: "Jireh Software Solutions",
-      icon: jireh,
-      iconBg: "#ffff",
-      date: "Mar 2024 - Present",
-      points: [
+        "Solved major challenges that occurred during development and assisted other team members during difficult times to resolve issues.",
         "Proven ability to lead and motivate teams towards achieving goals while fostering collaboration and innovation.",
-        "Collaborating with cross-functional teams including designers, and other developers to create high-quality products.",
-        "Solved major challenges that occurred during development and assisted other team members during difficult times to resolve issues."
       ],
-    },
-    
+    }
   ];
   
 

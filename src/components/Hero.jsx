@@ -11,7 +11,7 @@ const Hero = () => {
   const [text, count] = useTypewriter({
     words: [
       "Software Developer",
-      "with 3.5+ years of experience",
+      "with 3.6+ years of experience",
       "in Developing, and Maintaining Software Web Applications.",
     ],
     loop: true,

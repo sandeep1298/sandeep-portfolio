@@ -11,7 +11,7 @@ const Hero = () => {
   const [text, count] = useTypewriter({
     words: [
       "Software Developer",
-      "with 3.6+ years of experience",
+      "with 4.5+ years of experience",
       "in Developing, and Maintaining Software Web Applications.",
     ],
     loop: true,
@@ -20,7 +20,7 @@ const Hero = () => {
   return (
     <section className={`relative w-full height_small_screen_adjust h-screen mx-auto`}>
       <div
-        className={` ${styles.paddingX} absolute inset-0 top-[120px]  max-w-7xl  mx-auto flex flex-wrap flex-row items-start gap-5 `}
+        className={` ${styles.paddingX} absolute inset-0 top-[120px]  max-w-8xl  mx-auto flex flex-wrap flex-row items-start gap-5 `}
       >
         <div className="flex second_height h-full gap-5 width_medium">
         <div className='flex flex-col   justify-center items-center mt-5 self-start '>

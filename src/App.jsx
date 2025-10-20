@@ -20,12 +20,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000); // 2000 ms = 2 seconds
-  
-    // Cleanup the timeout when the component is unmounted or the effect runs again
-    return () => clearTimeout(timer);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {

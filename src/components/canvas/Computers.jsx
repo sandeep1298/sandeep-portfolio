@@ -4,24 +4,19 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile }) => {
-  const computer = useMemo(() => useGLTF("./desktop_pc/scene.gltf"), []);
+  const computer = useMemo(() => useGLTF("./desktop_pc/wall-e_and_eve-small.glb"), []);
+  useGLTF.preload("./desktop_pc/wall-e_and_eve-small.glb");
 
   return (
     <mesh>
-      <hemisphereLight intensity={1} groundColor='black' />
-      <spotLight
-        position={[-20, 50, 10]}
-        angle={0.12}
-        penumbra={1}
-        intensity={isMobile ? 0.5 : 0.6} // Lower intensity for mobile
-        castShadow={!isMobile}           // Disable shadows on mobile
-        shadow-mapSize={isMobile ? 256 : 512} // Lower shadow resolution on mobile
-      />
-      <pointLight intensity={isMobile ? 50 : 80} />
+      <hemisphereLight intensity={0.8}  />
+      
+      <pointLight intensity={isMobile ? 30 : 40} />
+      <ambientLight intensity={0.5} />
       <primitive
         object={computer.scene}
         scale={isMobile ? 0.7 : 0.58}      // Increase scale for mobile, decrease for large screens
-        position={isMobile ? [1.5, -3, -2.5] : [1.5, -2.8, -3.5]}
+        position={isMobile ? [1.5, -3, -2.5] : [2, -2, -2]}
         rotation={[0, 0.9, -0.1]}
       />
     </mesh>
@@ -44,10 +39,10 @@ const ComputersCanvas = () => {
   return (
     <Canvas
       frameloop="demand"                     // Render only when needed
-      shadows={!isMobile}                    // Disable shadows on mobile
-      dpr={[isMobile ? 0.5 : 1, 2]}          // Reduce dpr for mobile
-      camera={{ position: [15, 2, 5], fov: 30 }} // Adjusted camera for less render load
-      gl={{ antialias: !isMobile, preserveDrawingBuffer: true }} // No antialias on mobile
+      shadows={false}                    // Disable shadows on mobile
+     dpr={[1, isMobile ? 1.2 : 1.2]}      // Reduce dpr for mobile
+   camera={{ position: [15, 2, 5], fov: 30 }}
+     gl={{ antialias: !isMobile, preserveDrawingBuffer: false }}
     >
       <Suspense fallback={<CanvasLoader />} >
         <OrbitControls

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext} from "react";
 import { Link } from "react-router-dom";
-
+import { FaSun, FaMoon } from "react-icons/fa";
 import { styles } from "../styles";
 import { navLinks } from "../constants";
 import { logo, menu, close } from "../assets";
+import { ThemeContext } from "../context/ThemeContext";
 
 const Navbar = () => {
-
+const { darkTheme, toggleTheme } = useContext(ThemeContext);
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -51,6 +52,12 @@ const Navbar = () => {
       </Link>
 
       <ul className='list-none sm:hidden flex flex-row gap-10'>
+        <button
+        onClick={toggleTheme}
+        className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-black dark:text-white transition-colors duration-300"
+      >
+        {darkTheme ? <FaSun size={18} /> : <FaMoon size={18} />}
+      </button>
         {navLinks.map((nav) => (
           <li
             key={nav.id}

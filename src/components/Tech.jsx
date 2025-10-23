@@ -17,7 +17,7 @@ const TechCard = ({ index, icon,name ,alt }) => {
         data-tooltip-id="icons"
         data-tooltip-content={name}
       variants={bounceInRandom(0.3, 1)}
-        className=" w-28 h-28  sm:w-20 sm:h-20 md:w-24 md:h-24 green-pink-gradient p-[1px] rounded-full shadow-card select-none">
+        className=" w-28 h-28  sm:w-20 sm:h-20 md:w-24 md:h-24 bg-button rounded-full shadow-card select-none">
         <div
           options={{ max: 45, scale: 1, speed: 450 }}
           className="bg-tertiary rounded-full py-5 flex justify-center items-center flex-row place-items-center">

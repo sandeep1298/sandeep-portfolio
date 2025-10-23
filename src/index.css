@@ -5,8 +5,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 html {
+  background-color: snow;
   scroll-behavior: smooth;
+}
+
+html.dark {
+  background-color: black;
 }
 .card_custom {
   position: relative;

@@ -5,7 +5,8 @@ import { AnimationMixer } from "three";
 import CanvasLoader from "../Loader";
 
 const Earth = ({ isMobile }) => {
-  const { scene, animations } = useGLTF("./drone/scene.gltf");
+  const { scene, animations } = useGLTF("./drone/drone_concept-opt.glb");
+   useGLTF.preload("./drone/drone_concept-opt.glb");
   const mixer = useRef(null);
 
   useEffect(() => {
@@ -17,12 +18,10 @@ const Earth = ({ isMobile }) => {
       });
     }
   }, [animations, scene]);
-
-  useFrame((_, delta) => {
-    if (mixer.current) {
-      mixer.current.update(delta);
-    }
+   useFrame((_, delta) => {
+    if (mixer.current) mixer.current.update(delta);
   });
+
 
   const scale = useMemo(() => (isMobile ? 0.9 : 1.3), [isMobile]); // Dynamic scaling based on screen size
 
@@ -63,9 +62,13 @@ const EarthCanvas = () => {
   return (
     <Canvas
       shadows
-      frameloop="demand" // Optimize by rendering only when necessary
+       frameloop="always" // Optimize by rendering only when necessary
       dpr={[isMobile ? 0.5 : 1, 2]} // Reduce dpr for mobile to save resources
-      gl={{ antialias: !isMobile, preserveDrawingBuffer: true }} // Disable antialiasing for mobile
+    gl={{
+        antialias: true,
+        preserveDrawingBuffer: true,
+        powerPreference: "high-performance", // ✅ Hint GPU to optimize for performance
+      }}
       camera={{
         fov: isMobile ? 45 : 60, // Adjust camera for mobile to optimize view
         near: 0.1,

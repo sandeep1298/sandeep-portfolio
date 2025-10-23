@@ -1,11 +1,13 @@
-import { useState, useEffect, useRef, useMemo, Suspense } from "react";
+import { useState, useEffect, useRef, useMemo, Suspense, useContext } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Stars = (props) => {
   const ref = useRef();
   const [particleCount, setParticleCount] = useState(getParticleCount());
+  const { darkTheme } = useContext(ThemeContext);
 
   // Function to determine particle count based on screen width
   function getParticleCount() {
@@ -39,8 +41,8 @@ const Stars = (props) => {
       <Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
         <PointMaterial
           transparent
-          color="#f272c8"
-          size={0.002}
+          color={darkTheme ? "#ffffff" : "#000000"}
+          size={0.003}
           sizeAttenuation
           depthWrite={false}
         />

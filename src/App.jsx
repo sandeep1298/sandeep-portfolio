@@ -53,8 +53,8 @@ function App() {
         <div className="w-full overflow-hidden">
           <SpeedInsights />
           <BrowserRouter>
-            <div className="relative z-0 bg-primary w-full">
-              <div className='bg-hero-pattern bg-cover bg-no-repeat bg-center'>
+            <div className="relative z-0 w-full">
+              <div className='bg-cover bg-no-repeat bg-center'>
                 <Suspense fallback={<Loader />}>
                   <Navbar />
                   <div className='relative z-0'>

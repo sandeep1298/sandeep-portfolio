@@ -4,8 +4,8 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile }) => {
-  const computer = useMemo(() => useGLTF("./desktop_pc/wall-e_and_eve-small.glb"), []);
-  useGLTF.preload("./desktop_pc/wall-e_and_eve-small.glb");
+  const computer = useMemo(() => useGLTF("./desktop_pc/wall-e_and_eve-opt.glb"), []);
+  useGLTF.preload("./desktop_pc/wall-e_and_eve-opt.glb");
 
   return (
     <mesh>
@@ -38,11 +38,16 @@ const ComputersCanvas = () => {
 
   return (
     <Canvas
-      frameloop="demand"                     // Render only when needed
+       frameloop="always"                   // Render only when needed
       shadows={false}                    // Disable shadows on mobile
      dpr={[1, isMobile ? 1.2 : 1.2]}      // Reduce dpr for mobile
    camera={{ position: [15, 2, 5], fov: 30 }}
-     gl={{ antialias: !isMobile, preserveDrawingBuffer: false }}
+    gl={{
+    antialias: true,
+    preserveDrawingBuffer: true,
+    powerPreference: "high-performance",
+  }}
+   
     >
       <Suspense fallback={<CanvasLoader />} >
         <OrbitControls

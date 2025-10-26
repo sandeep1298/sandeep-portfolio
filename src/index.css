@@ -25,8 +25,17 @@ html.dark {
   background: #fff;
   box-shadow: 0 0 6px 0 rgba(32, 32, 36, 0.12);
   transition: all 0.35s ease;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
+/* Dark mode card */
+.dark .card_custom {
+  background: #1d1836;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+/* Gradient border animation */
 .card_custom::before,
 .card_custom::after {
   content: "";
@@ -36,6 +45,8 @@ html.dark {
   width: 100%;
   background: linear-gradient(to right, #38b2ac, #9b2c77, #f6ad55);
   height: 4px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .card_custom::before {
@@ -51,6 +62,11 @@ html.dark {
   transition: width 0.5s ease;
 }
 
+.dark .card_custom::after {
+  background: #1d1836;
+}
+
+/* --- Content --- */
 .card_custom .content_custom {
   width: 18em;
   max-width: 80%;
@@ -62,6 +78,10 @@ html.dark {
   text-transform: uppercase;
   margin: 0;
   letter-spacing: 2px;
+}
+
+.dark .card_custom .aling_hei {
+  color: #ffffff;
 }
 
 .card_custom .container_con {
@@ -84,9 +104,18 @@ html.dark {
   line-height: 1.4em;
 }
 
+.dark .card_custom .hover_content p {
+  color: #bbbbbb;
+}
+
+/* --- Hover Effects --- */
 .card_custom:hover {
   width: 24em;
   box-shadow: 0 10px 20px 0 rgba(32, 32, 36, 0.12);
+}
+
+.dark .card_custom:hover {
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
 }
 
 .card_custom:hover::before {
@@ -173,34 +202,71 @@ align-self: center;
 cursor: pointer;
 
 }
-.common_form input{
-  background-color: white; 
+/* ====== FORMS ====== */
+.common_form input,
+.common_form textarea {
+  border-radius: 8px;
   border: 2px solid wheat;
+  transition: all 0.3s ease-in-out;
 }
-.common_form button{
+
+/* LIGHT THEME */
+.light_form input,
+.light_form textarea {
+  background-color: white;
+  border-color: wheat;
+}
+
+.light_form button {
   background-color: wheat;
- border: 1px solid wheat;
-
-}
-.common_form button:hover{
- color: black;
- background-color: white;
- border: 1px solid wheat;
-}
-input::placeholder{
-  color: lightslategray;
+  color: black;
+  border: 1px solid wheat;
 }
 
-textarea::placeholder{
-  color: lightslategray;
+.light_form button:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid wheat;
 }
+
+/* DARK THEME */
+.dark_form input,
+.dark_form textarea {
+  background-color: #1d1836;
+  border: 2px solid #575C66;
+  color: white;
+}
+
+.dark_form input::placeholder,
+.dark_form textarea::placeholder {
+  color: #aaa;
+}
+
+.dark_form button {
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+}
+
+.dark_form button:hover {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #777;
+}
+
+/* Autofill fix */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 0s 600000s, color 0s 600000s !important;
 }
-.common_form textarea{
-  background-color: white; 
-  border: 2px solid wheat; 
+
+/* Utility background shades */
+.bg-darkInput {
+  background-color: #1d1d1d;
+}
+
+.bg-lightInput {
+  background-color: #fff;
 }
 ::-webkit-scrollbar {
   width: 10px;

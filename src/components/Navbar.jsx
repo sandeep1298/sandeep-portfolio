@@ -32,7 +32,7 @@ const { darkTheme, toggleTheme } = useContext(ThemeContext);
     className={`${
       styles.paddingX
     } w-full flex items-center py-5 fixed top-0 z-20  ${
-      scrolled ? "bg-black" : "bg-transparent"
+      scrolled ? "bg-white dark:bg-black" : "bg-transparent"
     }`}
   >
     <div className='w-full flex justify-between items-center max-w-8xl mx-auto'>
@@ -45,7 +45,7 @@ const { darkTheme, toggleTheme } = useContext(ThemeContext);
         }}
       >
         <img src={logo} alt='logo' className='w-15 h-12 object-contain' />
-        <p className='text-white text-[18px] font-bold cursor-pointer flex sm:hidden'>
+        <p className='text-black  dark:text-white text-[18px] font-bold cursor-pointer flex sm:hidden'>
           Sandeep &nbsp;
           <span className='sm:block hidden'> | Software Developer</span>
         </p>
@@ -62,8 +62,8 @@ const { darkTheme, toggleTheme } = useContext(ThemeContext);
           <li
             key={nav.id}
             className={`${
-              active === nav.title ? "text-white" : "text-secondary"
-            } hover:text-white text-[18px] font-medium cursor-pointer`}
+              active === nav.title ? "text-black dark:text-white" : "text-black dark:text-white"
+            } hover:text-text2 dark:hover:text-secondary text-[18px] font-medium cursor-pointer`}
             onClick={() => setActive(nav.title)}
           >
             <a href={`#${nav.id}`}>{nav.title}</a>

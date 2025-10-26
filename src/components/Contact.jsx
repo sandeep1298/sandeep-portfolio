@@ -1,4 +1,4 @@
-import React, {  useState ,useRef} from "react";
+import React, {  useState ,useRef, useContext} from "react";
 import { motion } from "framer-motion";
 import { EarthCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
@@ -7,9 +7,12 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import emailjs from "@emailjs/browser";
 import {toast} from 'react-hot-toast'
+import { ThemeContext } from "../context/ThemeContext";
 
 
 const Contact = () => {
+      const { darkTheme } = useContext(ThemeContext);
+  
   const formRef = useRef();
   const [form, setForm] = useState({
     name: "",
@@ -72,91 +75,107 @@ const Contact = () => {
   return (
     <>
     
-    <div
-      className={`lg:mt-0 flex lg:flex-row md:flex-row flex-wrap flex-col-reverse gap-10    justify-center  big_screen_hidden  place-content-center`}
+   <div
+      className={`lg:mt-0 flex lg:flex-row md:flex-row flex-wrap flex-col-reverse gap-10 justify-center place-content-center big_screen_hidden`}
     >
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className='flex-[0.75] bg-white-100 p-8 rounded-2xl back_white small_spacing '
+        className={`flex-[0.75] p-8 rounded-2xl small_spacing transition-all duration-300 
+          ${darkTheme ? "bg-tertiary" : "back_white"}`}
       >
         <motion.div variants={textVariant()} className="common">
-        
-        <h2 className=" animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black ">Get in touch</h2>
-      </motion.div>
-       
+          <h2 className="animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black">
+            Get in touch
+          </h2>
+        </motion.div>
 
         <form
-           ref={formRef}
+          ref={formRef}
           onSubmit={handleSubmit}
-          className='mt-7 flex flex-col gap-8 common_form'
+          className={`mt-7 flex flex-col gap-8 common_form ${
+            darkTheme ? "dark_form" : "light_form"
+          }`}
         >
-          <label className='flex flex-col'>
-            <span className='text-black font-medium mb-4'>Your Name *</span>
+          <label className="flex flex-col">
+            <span className={`font-medium mb-4 ${darkTheme ? "text-white" : "text-black"}`}>
+              Your Name *
+            </span>
             <input
-              type='text'
-              name='name'
+              type="text"
+              name="name"
               value={form.name}
               onChange={handleChange}
               placeholder="What's your good name?"
-              className=' py-4 px-6  text-black rounded-lg outline-none border-none font-medium'
+              className={`py-4 px-6 rounded-lg outline-none border-none font-medium ${
+                darkTheme ? "text-white bg-darkInput" : "text-black bg-lightInput"
+              }`}
               required
             />
           </label>
-          <label className='flex flex-col'>
-            <span className='text-black font-medium mb-4'>Your email *</span>
+
+          <label className="flex flex-col">
+            <span className={`font-medium mb-4 ${darkTheme ? "text-white" : "text-black"}`}>
+              Your email *
+            </span>
             <input
-              type='email'
-              name='email'
+              type="email"
+              name="email"
               value={form.email}
               onChange={handleChange}
               placeholder="What's your email address?"
-              className=' py-4 px-6  text-black rounded-lg outline-none border-none font-medium'
+              className={`py-4 px-6 rounded-lg outline-none border-none font-medium ${
+                darkTheme ? "text-white bg-darkInput" : "text-black bg-lightInput"
+              }`}
               required
             />
           </label>
-          <label className='flex flex-col'>
-            <span className='text-black font-medium mb-4'>Your Message</span>
+
+          <label className="flex flex-col">
+            <span className={`font-medium mb-4 ${darkTheme ? "text-white" : "text-black"}`}>
+              Your Message
+            </span>
             <textarea
               rows={3}
-              name='message'
+              name="message"
               value={form.message}
               onChange={handleChange}
-              placeholder='What you want to say?'
-              className='bg-tertiary py-4 px-6  text-black rounded-lg outline-none border-none font-medium'
+              placeholder="What you want to say?"
+              className={`py-4 px-6 rounded-lg outline-none border-none font-medium ${
+                darkTheme ? "text-white bg-darkInput" : "text-black bg-lightInput"
+              }`}
             />
           </label>
-           <div className="flex flex-wrap  ">
-          <button
-            type='submit'
-            className=' py-3 px-8 rounded-lg  outline-none w-fit text-black font-bold shadow-md shadow-primary'
-          >
-            {loading ? "Sending..." : "Send"}
-          </button>
-          <div className="flex-grow"></div>
-            <div className="flex   gap-6 ">
-             
-            <a
-  className="linked_in_icon"
-  href="https://www.linkedin.com/in/sandeep-m-4129ab172/"
-  rel="noreferrer"
-  target="_blank"
-  aria-label="Visit Sandeep M's LinkedIn profile"
->
-  <FaLinkedinIn />
-</a>
 
-<a
-  className="whatsapp_icon"
-  href="https://wa.me/9481068352"
-  rel="noreferrer"
-  target="_blank"
-  aria-label="Chat with Sandeep M on WhatsApp"
->
-  <IoLogoWhatsapp />
-</a>
+          <div className="flex flex-wrap items-center">
+            <button
+              type="submit"
+              className={`py-3 px-8 rounded-lg outline-none w-fit font-bold shadow-md transition-all duration-300 
+                ${darkTheme ? "btn_dark" : "btn_light"}`}
+            >
+              {loading ? "Sending..." : "Send"}
+            </button>
 
-           
+            <div className="flex-grow" />
 
+            <div className="flex gap-6">
+              <a
+                className="linked_in_icon"
+                href="https://www.linkedin.com/in/sandeep-m-4129ab172/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Visit LinkedIn"
+              >
+                <FaLinkedinIn />
+              </a>
+              <a
+                className="whatsapp_icon"
+                href="https://wa.me/9481068352"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Chat on WhatsApp"
+              >
+                <IoLogoWhatsapp />
+              </a>
             </div>
           </div>
         </form>
@@ -164,14 +183,10 @@ const Contact = () => {
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className='lg:flex-1 lg:h-auto md:h-[550px] h-[350px] '
+        className="lg:flex-1 lg:h-auto md:h-[550px] h-[350px]"
       >
         <EarthCanvas />
-
-
-        
       </motion.div>
-
     </div>
     
     </>

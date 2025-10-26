@@ -29,11 +29,11 @@ const Hero = () => {
         </div>
         
         <div >
-          <h1 className={` ${styles.heroHeadText} text-white`}>
+          <h1 className={` ${styles.heroHeadText} `}>
             Hi, I'm <br /> <span className="animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black">Sandeep M</span>
           </h1>
           <p
-                className={`${styles.heroSubText} mt-2 text-white-100 max-w-lg `}
+                className={`${styles.heroSubText} mt-2 max-w-lg `}
               >
                 {text}
                 <Cursor cursorColor="#915eff" />
@@ -62,7 +62,7 @@ const Hero = () => {
                 repeat: Infinity,
                 repeatType: "loop",
               }}
-              className='w-3 h-3 rounded-full bg-white'
+              className='w-3 h-3 rounded-full dark:bg-white bg-black'
             />
           </div>
         </a>

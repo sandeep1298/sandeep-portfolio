@@ -1,13 +1,14 @@
-import React, { useEffect, useState, useContext} from "react";
+import React, { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
-import { FaSun, FaMoon } from "react-icons/fa";
 import { styles } from "../styles";
 import { navLinks } from "../constants";
-import { logo, menu, close } from "../assets";
-import { ThemeContext } from "../context/ThemeContext";
+import { logo } from "../assets";
+import { Tooltip } from "react-tooltip";
+import { FaBars, FaTimes } from "react-icons/fa";
+import ThemeButton from "./utils/ThemeButton";
 
 const Navbar = () => {
-const { darkTheme, toggleTheme } = useContext(ThemeContext);
+
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -51,56 +52,63 @@ const { darkTheme, toggleTheme } = useContext(ThemeContext);
         </p>
       </Link>
 
-      <ul className='list-none sm:hidden flex flex-row gap-10'>
+    <ul className="list-none sm:hidden flex items-center flex-row gap-10">
+    <ThemeButton/>
+
+  {/* <Tooltip id="icons" className="tooltip_custom_tech" /> */}
+
+  {navLinks.map((nav) => (
+    <li
+      key={nav.id}
+      className={`${
+        active === nav.title ? "text-black dark:text-white" : "text-black dark:text-white"
+      } hover:text-text2 dark:hover:text-secondary text-[18px] font-medium cursor-pointer`}
+      onClick={() => setActive(nav.title)}
+    >
+      <a href={`#${nav.id}`}>{nav.title}</a>
+    </li>
+  ))}
+</ul>
+
+      <div className='sm:flex flex flex-1 gap-6 justify-end lg:hidden xl:hidden md:hidden items-center'>
+       <ThemeButton/>
         <button
-        onClick={toggleTheme}
-        className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-black dark:text-white transition-colors duration-300"
-      >
-        {darkTheme ? <FaSun size={18} /> : <FaMoon size={18} />}
-      </button>
-        {navLinks.map((nav) => (
-          <li
-            key={nav.id}
-            className={`${
-              active === nav.title ? "text-black dark:text-white" : "text-black dark:text-white"
-            } hover:text-text2 dark:hover:text-secondary text-[18px] font-medium cursor-pointer`}
-            onClick={() => setActive(nav.title)}
-          >
-            <a href={`#${nav.id}`}>{nav.title}</a>
-          </li>
-        ))}
-      </ul>
-
-      <div className='sm:flex flex flex-1 justify-end lg:hidden xl:hidden md:hidden items-center'>
-        <img
-          src={toggle ? close : menu}
-          alt='menu'
-          className='w-[28px] h-[28px] object-contain'
-          onClick={() => setToggle(!toggle)}
-        />
-
-        <div
-          className={`${
-            !toggle ? "hidden" : "flex"
-          } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+    onClick={() => setToggle(!toggle)}
+    className="p-2 rounded-full transition-colors duration-300 
+               bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700"
+  >
+    {toggle ? (
+      <FaTimes size={22} className="text-black dark:text-white" />
+    ) : (
+      <FaBars size={22} className="text-black dark:text-white" />
+    )}
+  </button>
+       <div
+    className={`${
+      !toggle ? "hidden" : "flex"
+    } p-6 absolute top-20 right-0 mx-4 my-2 min-w-[160px] z-10 rounded-xl 
+       bg-white dark:bg-[#1a1a1a] shadow-lg transition-colors duration-300`}
+  >
+    <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
+      {navLinks.map((nav) => (
+        <li
+          key={nav.id}
+          className={`font-poppins font-medium cursor-pointer text-[16px] 
+            ${
+              active === nav.title
+                ? "text-primary dark:text-white"
+                : "text-gray-800 dark:text-gray-300"
+            } hover:text-text2 dark:hover:text-secondary transition-colors duration-200`}
+          onClick={() => {
+            setToggle(!toggle);
+            setActive(nav.title);
+          }}
         >
-          <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
-            {navLinks.map((nav) => (
-              <li
-                key={nav.id}
-                className={`font-poppins font-medium cursor-pointer text-[16px] ${
-                  active === nav.title ? "text-white" : "text-secondary"
-                }`}
-                onClick={() => {
-                  setToggle(!toggle);
-                  setActive(nav.title);
-                }}
-              >
-                <a href={`#${nav.id}`}>{nav.title}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <a href={`#${nav.id}`}>{nav.title}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
       </div>
     </div>
   </nav>

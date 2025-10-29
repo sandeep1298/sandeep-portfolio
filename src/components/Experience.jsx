@@ -21,7 +21,7 @@ const ExperienceCard = React.memo(({ experience,darkTheme }) => {
     color: darkTheme ? "#fff" : "#000",
     boxShadow: darkTheme
       ? "0 3px 10px rgba(255, 255, 255, 0.1)"
-      : "0 3px 10px rgba(0, 0, 0, 0.1)",
+      : "0 3px 10px rgba(0, 0, 0, 0.3)",
     borderBottom: 
  "3px solid #915EFF",
      
@@ -36,7 +36,7 @@ const ExperienceCard = React.memo(({ experience,darkTheme }) => {
   }}
   date={experience.date}
  iconStyle={{
-  background: experience.iconBg,
+  background:" #ffffff",
   border: darkTheme
     ? "3px solid #ffffff" // white border in dark mode
     : "3px solid #915EFF", // black border in light mode

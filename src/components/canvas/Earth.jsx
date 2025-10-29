@@ -1,10 +1,11 @@
-import React, { Suspense, useEffect, useRef, useState, useMemo } from "react";
+import React, { Suspense, useEffect, useRef, useState, useMemo, useContext } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import { AnimationMixer } from "three";
 import CanvasLoader from "../Loader";
+import { ThemeContext } from "../../context/ThemeContext";
 
-const Earth = ({ isMobile }) => {
+const Earth = ({ isMobile,darkTheme }) => {
   const { scene, animations } = useGLTF("./drone/drone_concept-opt.glb");
    useGLTF.preload("./drone/drone_concept-opt.glb");
   const mixer = useRef(null);
@@ -27,12 +28,11 @@ const Earth = ({ isMobile }) => {
 
   return (
     <mesh>
-      <hemisphereLight intensity={isMobile ? 4 : 8} groundColor="black" />
+      <hemisphereLight intensity={isMobile || darkTheme ? 4 :  7}  />
       <spotLight
         position={[-20, 50, 10]}
         angle={0.12}
         penumbra={1}
-        intensity={isMobile ? 0.5 : 1}
         castShadow={!isMobile} // Disable shadows for mobile to boost performance
       />
       <pointLight intensity={isMobile ? 3 : 8} />
@@ -40,7 +40,7 @@ const Earth = ({ isMobile }) => {
         object={scene}
         scale={scale}
         position={isMobile ? [0, 0, 0] : [0, 0, 0]}
-        rotation={[0, -20, 0]}
+        rotation={[-0.7, -20, -0.7]}
       />
     </mesh>
   );
@@ -48,7 +48,7 @@ const Earth = ({ isMobile }) => {
 
 const EarthCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
-
+  const { darkTheme } = useContext(ThemeContext);
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 500px)");
     setIsMobile(mediaQuery.matches);
@@ -61,14 +61,22 @@ const EarthCanvas = () => {
 
   return (
     <Canvas
+     performance={{ min: 0.5 }} 
       shadows
        frameloop="always" // Optimize by rendering only when necessary
       dpr={[isMobile ? 0.5 : 1, 2]} // Reduce dpr for mobile to save resources
     gl={{
         antialias: true,
         preserveDrawingBuffer: true,
-        powerPreference: "high-performance", // ✅ Hint GPU to optimize for performance
+        powerPreference: "high-performance", 
+        failIfMajorPerformanceCaveat: false,
       }}
+       onCreated={({ gl }) => {
+    gl.getContext().canvas.addEventListener("webglcontextlost", (e) => {
+      e.preventDefault();
+      console.warn("WebGL context lost");
+    });
+  }}
       camera={{
         fov: isMobile ? 45 : 60, // Adjust camera for mobile to optimize view
         near: 0.1,
@@ -84,7 +92,7 @@ const EarthCanvas = () => {
           autoRotate={!isMobile} // Disable auto-rotate for mobile
           autoRotateSpeed={isMobile ? 0.2 : 0.5} // Reduce speed for mobile
         />
-        <Earth isMobile={isMobile} />
+        <Earth isMobile={isMobile}  darkTheme={darkTheme} />
       </Suspense>
       <Preload all />
     </Canvas>

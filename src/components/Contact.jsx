@@ -81,7 +81,7 @@ const Contact = () => {
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
         className={`flex-[0.75] p-8 rounded-2xl small_spacing transition-all duration-300 
-          ${darkTheme ? "bg-tertiary" : "back_white"}`}
+          ${darkTheme ? "bg-tertiary back_black" : "back_white"}`}
       >
         <motion.div variants={textVariant()} className="common">
           <h2 className="animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black">
@@ -150,7 +150,7 @@ const Contact = () => {
             <button
               type="submit"
               className={`py-3 px-8 rounded-lg outline-none w-fit font-bold shadow-md transition-all duration-300 
-                ${darkTheme ? "btn_dark" : "btn_light"}`}
+                ${darkTheme ? "btn_white" : "btn_light"}`}
             >
               {loading ? "Sending..." : "Send"}
             </button>
@@ -185,6 +185,7 @@ const Contact = () => {
         variants={slideIn("right", "tween", 0.2, 1)}
         className="lg:flex-1 lg:h-auto md:h-[550px] h-[350px]"
       >
+        
         <EarthCanvas />
       </motion.div>
     </div>

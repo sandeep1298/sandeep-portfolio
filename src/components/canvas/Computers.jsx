@@ -41,6 +41,7 @@ const ComputersCanvas = () => {
 
   return (
     <Canvas
+    performance={{ min: 0.5 }} 
        frameloop="always"                   // Render only when needed
       shadows={false}                    // Disable shadows on mobile
      dpr={[1, isMobile ? 1.2 : 1.2]}      // Reduce dpr for mobile
@@ -49,8 +50,15 @@ const ComputersCanvas = () => {
     antialias: true,
     preserveDrawingBuffer: true,
     powerPreference: "high-performance",
+     failIfMajorPerformanceCaveat: false,
   }}
-   
+    onCreated={({ gl }) => {
+    gl.getContext().canvas.addEventListener("webglcontextlost", (e) => {
+      e.preventDefault();
+      console.warn("WebGL context lost");
+    });
+  }}
+  
     >
       <Suspense fallback={<CanvasLoader />} >
         <OrbitControls

@@ -52,7 +52,7 @@ const ExperienceCard = React.memo(({ experience,darkTheme }) => {
         src={experience.icon}
         loading="lazy"
         alt={experience.company_name}
-        className="w-[60%] h-[60%] object-contain"
+        className="w-[60px] h-[30px] object-contain"
       />
     </div>
   }

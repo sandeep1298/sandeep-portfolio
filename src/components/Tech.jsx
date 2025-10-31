@@ -6,10 +6,15 @@ import { technologies } from "../constants"
 import { styles } from "../styles"
 import { motion } from "framer-motion";
 import { Tooltip } from "react-tooltip";
+import { ThemeContext } from "../context/ThemeContext";
+import { nextjswhite } from "../assets";
 
 
 const TechCard = ({ index, icon,name ,alt }) => {
-   
+  const { darkTheme } = useContext(ThemeContext);
+    const displayIcon =
+    name === "NextJS" && darkTheme ? nextjswhite : icon;
+
   return (
     <>
     <Tilt className="w-28 h-28 sm:w-20 sm:h-20 md:w-24 md:h-24 text-center place-content-center place-items-center justify-center flex ">
@@ -24,7 +29,7 @@ const TechCard = ({ index, icon,name ,alt }) => {
           className="dark:bg-tertiary bg-white rounded-full py-5 flex justify-center items-center flex-row place-items-center">
           <img alt={alt}
            loading="lazy"
-          src={icon} className="w-16 h-16 sm:w-10 sm:h-10 md:w-14 md:h-14 object-contain" />
+           src={displayIcon} className="w-16 h-16 sm:w-10 sm:h-10 md:w-14 md:h-14 object-contain" />
         </div>
         
       </motion.div>

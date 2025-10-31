@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import logo from "./logo_purple.svg";
 import menu from "./menu.svg";
 import close from "./close.svg";
 
@@ -23,7 +23,7 @@ import nextjs from "./tech/nextjs.svg";
 import sweng from "./company/sweng.png";
 import connect from "./company/konnect-logo.png";
 import jireh from "./company/black-logo.jpg";
-
+import nextjswhite from './tech/Nextjswhite.png'
 
 
 
@@ -54,5 +54,5 @@ export {
   sweng,
   connect,
   jireh,
- 
+ nextjswhite
 };

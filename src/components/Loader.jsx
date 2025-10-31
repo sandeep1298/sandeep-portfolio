@@ -1,6 +1,11 @@
 import { Html, useProgress } from "@react-three/drei";
+import { ThemeContext } from "../context/ThemeContext";
+import { useContext } from "react";
+
+
 
 const CanvasLoader = () => {
+  const { darkTheme } = useContext(ThemeContext);
   const { progress } = useProgress();
   return (
     <Html
@@ -17,7 +22,7 @@ const CanvasLoader = () => {
       <p
         style={{
           fontSize: 14,
-          color: "#F1F1F1",
+          color: darkTheme ? "#F1F1F1" : "#1A1A1A", 
           fontWeight: 800,
           marginTop: 40,
         }}

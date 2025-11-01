@@ -15,7 +15,9 @@ import {
     nginx,
     sweng,
     connect,
-    framer
+    framer,
+    grafana,
+    docker
   } from "../assets";
   
   export const navLinks = [
@@ -69,6 +71,10 @@ import {
       name: "Sass",
       icon: sass,
     },
+     {
+      name: "Grafana",
+      icon: grafana,
+    },
     {
       name: "Node JS",
       icon: nodejs,
@@ -84,6 +90,10 @@ import {
     {
       name: "git",
       icon: git,
+    },
+      {
+      name: "Docker",
+      icon: docker,
     },
     {
       name: "Nginx",

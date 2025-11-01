@@ -24,11 +24,9 @@ import sweng from "./company/sweng.png";
 import connect from "./company/konnect-logo.png";
 import jireh from "./company/black-logo.jpg";
 import nextjswhite from './tech/Nextjswhite.png'
-
-
-
+import grafana from './tech/Grafana.svg';
 import rocket from "./rocket.svg";
-
+import docker from "./tech/Docker.svg";
 
 export {
   logo,
@@ -54,5 +52,7 @@ export {
   sweng,
   connect,
   jireh,
- nextjswhite
+ nextjswhite,
+ grafana,
+ docker
 };

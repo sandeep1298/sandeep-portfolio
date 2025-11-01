@@ -63,7 +63,7 @@ const EarthCanvas = () => {
     <Canvas
      performance={{ min: 0.5 }} 
       shadows
-       frameloop="always" // Optimize by rendering only when necessary
+       frameloop="demand" // Optimize by rendering only when necessary
       dpr={[isMobile ? 0.5 : 1, 2]} // Reduce dpr for mobile to save resources
     gl={{
         antialias: true,
@@ -74,7 +74,7 @@ const EarthCanvas = () => {
        onCreated={({ gl }) => {
     gl.getContext().canvas.addEventListener("webglcontextlost", (e) => {
       e.preventDefault();
-      console.warn("WebGL context lost");
+     // console.warn("WebGL context lost");
     });
   }}
       camera={{

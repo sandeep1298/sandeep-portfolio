@@ -42,7 +42,7 @@ const ComputersCanvas = () => {
   return (
     <Canvas
     performance={{ min: 0.5 }} 
-       frameloop="always"                   // Render only when needed
+       frameloop="demand"                   // Render only when needed
       shadows={false}                    // Disable shadows on mobile
      dpr={[1, isMobile ? 1.2 : 1.2]}      // Reduce dpr for mobile
    camera={{ position: [15, 2, 5], fov: 30 }}

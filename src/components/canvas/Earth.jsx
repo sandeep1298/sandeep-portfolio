@@ -67,8 +67,8 @@ const EarthCanvas = () => {
       dpr={[isMobile ? 0.5 : 1, 2]} // Reduce dpr for mobile to save resources
     gl={{
         antialias: true,
-        preserveDrawingBuffer: true,
-        powerPreference: "high-performance", 
+        preserveDrawingBuffer: false,
+        powerPreference: "default", 
         failIfMajorPerformanceCaveat: false,
       }}
        onCreated={({ gl }) => {

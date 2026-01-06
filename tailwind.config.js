@@ -11,7 +11,7 @@ export default {
       sm: { min: "320px", max: "640px" },
       md: { min: "641px", max: "1024px" },
       lg: "1025px",
-      xs: "450px",
+      xs: { max: "450px" },
     },
     extend: {
       colors: {

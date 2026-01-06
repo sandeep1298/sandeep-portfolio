@@ -48,8 +48,8 @@ const ComputersCanvas = () => {
    camera={{ position: [15, 2, 5], fov: 30 }}
     gl={{
     antialias: true,
-    preserveDrawingBuffer: true,
-    powerPreference: "high-performance",
+    preserveDrawingBuffer: false,
+    powerPreference: "default",
      failIfMajorPerformanceCaveat: false,
   }}
     onCreated={({ gl }) => {

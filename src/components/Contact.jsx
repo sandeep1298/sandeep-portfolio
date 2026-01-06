@@ -76,7 +76,7 @@ const Contact = () => {
     <>
     
    <div
-      className={`lg:mt-0 flex lg:flex-row md:flex-row flex-wrap flex-col-reverse gap-10 justify-center place-content-center big_screen_hidden`}
+      className={`lg:mt-0 flex lg:flex-row md:flex-row  flex-wrap flex-col-reverse gap-10 justify-center place-content-center big_screen_hidden`}
     >
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
@@ -183,7 +183,7 @@ const Contact = () => {
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className="lg:flex-1 lg:h-auto md:h-[550px] h-[350px]"
+        className="xs:hidden lg:flex-1 lg:h-auto md:h-[550px] h-[350px]"
       >
         
         <EarthCanvas />

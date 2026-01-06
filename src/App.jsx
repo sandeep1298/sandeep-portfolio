@@ -15,6 +15,7 @@ const Navbar = lazy(() => import("./components/Navbar"));
 const Tech = lazy(() => import("./components/Tech"));
 const Works = lazy(() => import("./components/Works"));
 const StarsCanvas = lazy(() => import("./components/canvas/Stars.jsx"));
+
 function App() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -73,7 +74,9 @@ function App() {
               <div className='relative z-0 mb-10'>
                 <Suspense fallback={<Loader />}>
                   <Contact />
+                  <div className="sm:hidden">
                   <StarsCanvas />
+                  </div>
                 </Suspense>
               </div>
               <hr className="line_custom" />

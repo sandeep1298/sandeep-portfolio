@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
-import React from "react";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
-
 import { styles } from "../styles";
 import { ComputersCanvas } from "./canvas";
 
@@ -11,7 +9,7 @@ const Hero = () => {
   const [text, count] = useTypewriter({
     words: [
       "Software Developer",
-      "with 4+ years of experience",
+      "with 4.5 years of experience",
       "in Developing, and Maintaining Software Web Applications.",
     ],
     loop: true,
@@ -20,10 +18,10 @@ const Hero = () => {
   return (
     <section className={`relative w-full height_small_screen_adjust h-screen mx-auto`}>
       <div
-        className={` ${styles.paddingX} absolute inset-0 top-[120px]  max-w-8xl  mx-auto flex flex-wrap flex-row items-start gap-5 `}
+        className={` ${styles.paddingX} absolute inset-0 xs:top-[150px] top-[120px] max-w-8xl  mx-auto flex flex-wrap flex-row items-start gap-5 `}
       >
         <div className="flex second_height h-full gap-5 width_medium">
-        <div className='flex flex-col   justify-center items-center mt-5 self-start '>
+        <div className='flex flex-col justify-center items-center mt-5 self-start '>
           <div className='w-5 h-5 rounded-full bg-[#915EFF]' />
           <div className='w-1 sm:h-36 h-64 violet-gradient' />
         </div>
@@ -42,7 +40,7 @@ const Hero = () => {
         </div>
         </div>
         <div className="flex-grow small_grow_none"></div>
-        <div className='   width_in_pixels h-full  height_small_screen  lg:block'>
+        <div className='sm:hidden width_in_pixels h-full height_small_screen'>
         <ComputersCanvas />
       </div>
       </div>
@@ -50,7 +48,7 @@ const Hero = () => {
       
     
      
-      <div className='absolute xs:bottom-10 bottom-5 w-full flex display_none justify-center items-center cursor-pointer '>
+      <div className='absolute  bottom-5 w-full flex  justify-center items-center cursor-pointer '>
         <a href='#tech' aria-label="Scroll down to technology section">
           <div className='w-[35px] h-[64px] width_top_bottom rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
             <motion.div

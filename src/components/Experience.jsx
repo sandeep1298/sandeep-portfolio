@@ -4,9 +4,7 @@ import {
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import { motion } from "framer-motion";
-
 import "react-vertical-timeline-component/style.min.css";
-
 import { styles } from "../styles";
 import { experiences } from "../constants";
 import { SectionWrapper } from "../hoc";
@@ -52,34 +50,34 @@ const ExperienceCard = React.memo(({ experience,darkTheme }) => {
         src={experience.icon}
         loading="lazy"
         alt={experience.company_name}
-        className="w-[60px] h-[30px] object-contain"
+        className=" sm:w-[28px] w-[60px] h-[30px] object-contain"
       />
     </div>
   }
 >
   <div>
     <h3
-      className={`text-[24px] font-bold ${
+      className={`text-[24px] sm:text-[18px] font-bold ${
         darkTheme ? "text-white" : "text-black"
       }`}
     >
       {experience.title}
     </h3>
-    <p
-      className={`text-[16px] font-semibold ${
+    <h5
+      className={`text-[16px] xs:text-[15px] font-semibold ${
         darkTheme ? "text-gray-300" : "text-gray-700"
       }`}
       style={{ margin: 0 }}
     >
       {experience.company_name}
-    </p>
+    </h5>
   </div>
 
   <ul className="mt-5 list-disc ml-5 space-y-2">
     {experience.points.map((point, index) => (
       <li
         key={`experience-point-${index}`}
-        className={`text-[14px] pl-1 tracking-wider ${
+        className={`text-[14px] xs:text-[13px] pl-1 tracking-wider ${
           darkTheme ? "text-gray-300" : "text-gray-700"
         }`}
       >
@@ -109,7 +107,7 @@ const Experience = () => {
         </h2>
       </motion.div>
 
-      <div className='mt-20 flex flex-col'>
+      <div className='mt-20 sm:mt-12 sm:mb-10 flex flex-col'>
        <VerticalTimeline lineColor={darkTheme ? "#fff" : "#000"}>
           {[...experiences].reverse().map((experience, index) => (
             <ExperienceCard

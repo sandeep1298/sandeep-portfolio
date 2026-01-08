@@ -1,5 +1,6 @@
 import {
     javascript,
+    typescript,
     html,
     css,
     reactjs,
@@ -11,13 +12,15 @@ import {
    jireh,
     threejs,
     bootstrap,
+    tailwind,
     sass,
     nginx,
     sweng,
     connect,
     framer,
     grafana,
-    docker
+    docker,
+    leader
   } from "../assets";
   
   export const navLinks = [
@@ -72,6 +75,10 @@ import {
       icon: sass,
     },
      {
+      name: "TailWind Css",
+      icon: tailwind,
+    },
+     {
       name: "Grafana",
       icon: grafana,
     },
@@ -82,10 +89,6 @@ import {
     {
       name: "MongoDB",
       icon: mongodb,
-    },
-    {
-      name: "Framer Motion",
-      icon: framer,
     },
     {
       name: "git",
@@ -99,7 +102,10 @@ import {
       name: "Nginx",
       icon: nginx,
     },
-   
+   {
+      name: "TypeScript",
+      icon: typescript,
+    },
   ];
   
   const experiences = [
@@ -110,7 +116,8 @@ import {
       iconBg: "#383E56",
       date: "September 2020 - July 2021",
       points: [
-      "Developed a Progressive Web Application to assist medical aid and natural disaster relief, including donations for individuals affected by COVID-19."
+      "Developed a Progressive Web Application to assist medical aid and natural disaster relief, including donations for individuals affected by COVID-19.",
+      "Technologies: HTML5, CSS3, Bootstrap, React JS"
       ],
     },
     {
@@ -122,6 +129,7 @@ import {
       points: [
         "Developed an automation platform using Google Cloud Text-to-Speech, allowing users to input text, set delays, and adjust pitch, volume, and rate with input sliders.",
         "Implementing responsive design and ensuring cross-browser compatibility.",
+        "Technologies: React JS, Node JS, MongoDB, SCSS"
       ],
     },
     {
@@ -136,6 +144,21 @@ import {
         "Implemented a chat interface for health-related queries and solutions.",
         "Solved major challenges that occurred during development and assisted other team members during difficult times to resolve issues.",
         "Proven ability to lead and motivate teams towards achieving goals while fostering collaboration and innovation.",
+        "Technologies: React JS, Redux, Next JS, Bootstrap, Framer-motion, SCSS"
+      ],
+    },
+     {
+      title: "Full Stack JavaScript Developer",
+      company_name: "Leader Investment Group",
+      icon: leader,
+      iconBg: "#ffff",
+      date: "May 2025 - Dec 2025",
+      points: [
+        "Worked on a low-code enterprise platform, modernizing the UI and delivering customizable features to improve usability and flexibility.",
+        "Designed and developed innovative data visualization dashboards using advanced charting techniques, introducing new visual formats and supporting BI developers with scripting and integration.",
+        "Implemented browser-based voice and video calling functionality integrated with SIP servers to enable real-time communication.",
+        "Delivered hybrid mobile applications by serving web views within Android (APK) and iOS builds, ensuring consistent cross-platform functionality.",
+        "Technologies: React JS, Grafana, Vue JS"
       ],
     }
   ];
@@ -146,7 +169,7 @@ import {
     {
       name: "stethUP",
       description:
-        "stethUP is a revolutionary online platform designed to unify healthcare professionals, organizations,and institutions, facilitating seamless communication, collaboration, and knowledge sharing across the healthcare industry.",
+        "stethUP is a revolutionary online platform designed to unify healthcare professionals, organizations, and institutions, facilitating seamless communication, collaboration, and knowledge sharing across the healthcare industry.",
     
   
     },
@@ -161,6 +184,18 @@ import {
       name: "Help Me Online",
       description:
         "Help Me Online(HMO) is a online Crowd Funding Platform across the India to raise the funds and donate for the people who are in need.",
+     
+    },
+    {
+      name: "Infoore",
+      description:
+        "Infoore is a business intelligence platform that helps organizations analyze, visualize, and transform complex data into actionable insights for informed decision-making.",
+     
+    },
+     {
+      name: "Automax",
+      description:
+        "Automax is a low-code platform that helps organizations automate workflows and incident management to enable faster resolutions, improved collaboration, and scalable operations.",
      
     },
   ];

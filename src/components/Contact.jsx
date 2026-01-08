@@ -106,7 +106,7 @@ const Contact = () => {
               value={form.name}
               onChange={handleChange}
               placeholder="What's your good name?"
-              className={`py-4 px-6 rounded-lg outline-none border-none font-medium ${
+              className={`py-4 px-3 rounded-lg outline-none border-none font-medium ${
                 darkTheme ? "text-white bg-darkInput" : "text-black bg-lightInput"
               }`}
               required
@@ -123,7 +123,7 @@ const Contact = () => {
               value={form.email}
               onChange={handleChange}
               placeholder="What's your email address?"
-              className={`py-4 px-6 rounded-lg outline-none border-none font-medium ${
+              className={`py-4 px-3 rounded-lg outline-none border-none font-medium ${
                 darkTheme ? "text-white bg-darkInput" : "text-black bg-lightInput"
               }`}
               required
@@ -140,7 +140,7 @@ const Contact = () => {
               value={form.message}
               onChange={handleChange}
               placeholder="What you want to say?"
-              className={`py-4 px-6 rounded-lg outline-none border-none font-medium ${
+              className={`py-4 px-3 rounded-lg outline-none border-none font-medium ${
                 darkTheme ? "text-white bg-darkInput" : "text-black bg-lightInput"
               }`}
             />

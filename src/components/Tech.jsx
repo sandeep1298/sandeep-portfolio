@@ -50,7 +50,7 @@ const Tech = () => {
         </h2>
       </motion.div>
 
-      <div className="flex flex-row flex-wrap justify-center gap-10 mt-20">
+      <div className="flex flex-row flex-wrap justify-center gap-10 mt-20 sm:mt-12 sm:mb-10">
         {technologies.map((technology) => (
           <TechCard icon={technology.icon} key={technology.name} name={technology.name} alt={technology.name} />
         ))}

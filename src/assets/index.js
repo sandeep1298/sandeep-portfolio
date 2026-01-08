@@ -21,6 +21,7 @@ import sass from "./tech/sass-icon.svg";
 import nginx from "./tech/nginx-icon.svg";
 import nextjs from "./tech/nextjs.svg";
 import sweng from "./company/sweng.png";
+import leader from "./company/Leader-logo.png";
 import connect from "./company/konnect-logo.png";
 import jireh from "./company/black-logo.jpg";
 import nextjswhite from './tech/Nextjswhite.png'
@@ -54,5 +55,6 @@ export {
   jireh,
  nextjswhite,
  grafana,
- docker
+ docker,
+ leader
 };

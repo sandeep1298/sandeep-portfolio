@@ -7,6 +7,7 @@ import Loader from "./utils/Loader";
 import { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
+
 // Lazy loading components
 const Contact = lazy(() => import("./components/Contact"));
 const Experience = lazy(() => import("./components/Experience"));
@@ -93,7 +94,7 @@ function App() {
                 data-tooltip-id="scroll-to-top"
                 data-tooltip-content="Go To Top"
               >
-                <img src={rocket} />
+                <img src={rocket} alt="Back To Top" />
               </button>
               {showanim === false ? <Tooltip id="scroll-to-top" className="tooltip_custom" place="top-end" /> : null}
             </>

@@ -149,7 +149,7 @@ import {
     },
      {
       title: "Full Stack JavaScript Developer",
-      company_name: "Leader Investment Group",
+      company_name: "Leader IT Pvt Ltd",
       icon: leader,
       iconBg: "#ffff",
       date: "May 2025 - Dec 2025",

@@ -28,6 +28,8 @@ import nextjswhite from './tech/Nextjswhite.png'
 import grafana from './tech/Grafana.svg';
 import rocket from "./rocket.svg";
 import docker from "./tech/Docker.svg";
+import jest from "./tech/Jest.svg";
+
 
 export {
   logo,
@@ -56,5 +58,6 @@ export {
  nextjswhite,
  grafana,
  docker,
- leader
+ leader,
+ jest
 };

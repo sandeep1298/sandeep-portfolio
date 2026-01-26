@@ -20,7 +20,8 @@ import {
     framer,
     grafana,
     docker,
-    leader
+    leader,
+    jest
   } from "../assets";
   
   export const navLinks = [
@@ -99,8 +100,8 @@ import {
       icon: docker,
     },
     {
-      name: "Nginx",
-      icon: nginx,
+      name: "Jest",
+      icon: jest,
     },
    {
       name: "TypeScript",
@@ -158,7 +159,7 @@ import {
         "Designed and developed innovative data visualization dashboards using advanced charting techniques, introducing new visual formats and supporting BI developers with scripting and integration.",
         "Implemented browser-based voice and video calling functionality integrated with SIP servers to enable real-time communication.",
         "Delivered hybrid mobile applications by serving web views within Android (APK) and iOS builds, ensuring consistent cross-platform functionality.",
-        "Technologies: React JS, Grafana, Vue JS"
+        "Technologies: React JS, Grafana, Vue JS, Expo"
       ],
     }
   ];

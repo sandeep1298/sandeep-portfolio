@@ -159,7 +159,7 @@ import {
         "Designed and developed innovative data visualization dashboards using advanced charting techniques, introducing new visual formats and supporting BI developers with scripting and integration.",
         "Implemented browser-based voice and video calling functionality integrated with SIP servers to enable real-time communication.",
         "Delivered hybrid mobile applications by serving web views within Android (APK) and iOS builds, ensuring consistent cross-platform functionality.",
-        "Technologies: React JS, Grafana, Vue JS, Expo"
+        "Technologies: React JS, Grafana, Docker, Vue JS, Expo"
       ],
     }
   ];

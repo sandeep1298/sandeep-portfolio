@@ -145,7 +145,7 @@ import {
         "Implemented a chat interface for health-related queries and solutions.",
         "Solved major challenges that occurred during development and assisted other team members during difficult times to resolve issues.",
         "Proven ability to lead and motivate teams towards achieving goals while fostering collaboration and innovation.",
-        "Technologies: React JS, Redux, Next JS, Bootstrap, Framer-motion, SCSS"
+        "Technologies: React JS, Redux, JavaScript, Next JS, Bootstrap, Framer-motion, Node JS, Express JS, Jest"
       ],
     },
      {
@@ -159,7 +159,7 @@ import {
         "Designed and developed innovative data visualization dashboards using advanced charting techniques, introducing new visual formats and supporting BI developers with scripting and integration.",
         "Implemented browser-based voice and video calling functionality integrated with SIP servers to enable real-time communication.",
         "Delivered hybrid mobile applications by serving web views within Android (APK) and iOS builds, ensuring consistent cross-platform functionality.",
-        "Technologies: React JS, Grafana, Docker, Vue JS, Expo"
+        "Technologies: React JS, JavaScript, TypeScript, Grafana, Docker, Vue JS, Expo"
       ],
     }
   ];

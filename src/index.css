@@ -294,11 +294,11 @@ input:-webkit-autofill:focus {
    margin: 10px;
   box-shadow: 0 3px 10px rgba(255, 255, 255, 0.1);
 }
-/* .hash-span {
-  margin-top: -100px;
+ .hash-span {
+  padding-top: -100px;
   padding-bottom: 100px;
   display: block;
-} */
+}
 .white-gradient {
   background: #ffffff; /* fallback for old browsers */
   background: -webkit-linear-gradient(

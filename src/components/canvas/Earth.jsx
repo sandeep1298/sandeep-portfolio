@@ -6,8 +6,8 @@ import CanvasLoader from "../Loader";
 import { ThemeContext } from "../../context/ThemeContext";
 
 const Earth = ({ isMobile,darkTheme }) => {
-  const { scene, animations } = useGLTF("./drone/drone_concept-opt.glb");
-   useGLTF.preload("./drone/drone_concept-opt.glb");
+const { scene, animations } = useGLTF("./drone/drone_concept-superopt.glb");
+useGLTF.preload("./drone/drone_concept-superopt.glb");
   const mixer = useRef(null);
 
   useEffect(() => {

@@ -1,48 +1,39 @@
-import { useState, useEffect, useRef, useMemo, Suspense, useContext } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useRef, useMemo, Suspense, useContext } from "react";
+import { Canvas, useFrame, invalidate } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 import { ThemeContext } from "../../context/ThemeContext";
 
-const Stars = (props) => {
+const Stars = () => {
   const ref = useRef();
-  const [particleCount, setParticleCount] = useState(getParticleCount());
   const { darkTheme } = useContext(ThemeContext);
 
-  // Function to determine particle count based on screen width
-  function getParticleCount() {
-    if (window.innerWidth < 500) return 1500; // Mobile
-    if (window.innerWidth < 1024) return 1500; // Tablet
-    return 1500; // Desktop
-  }
-
-  useEffect(() => {
-    const handleResize = () => {
-      setParticleCount(getParticleCount());
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
+  // Compute the particle positions ONCE
   const sphere = useMemo(
-    () => random.inSphere(new Float32Array(particleCount * 3), { radius: 1.2 }),
-    [particleCount]
+    () => random.inSphere(new Float32Array(800 * 3), { radius: 1.2 }),
+    []
   );
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (ref.current) {
       ref.current.rotation.x += delta * 0.02;
       ref.current.rotation.y += delta * 0.02;
+      invalidate(); // Render only on change (with frameloop="demand")
     }
   });
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
+      <Points
+        ref={ref}
+        positions={sphere}
+        stride={3}
+        frustumCulled
+      >
         <PointMaterial
           transparent
           color={darkTheme ? "#ffffff" : "#000000"}
-          size={0.003}
+          size={0.0025}
           sizeAttenuation
           depthWrite={false}
         />
@@ -55,8 +46,8 @@ const StarsCanvas = () => {
   return (
     <div className="w-full h-auto absolute inset-0 z-[-1]">
       <Canvas
-        frameloop="always"
-        dpr={[1, 1.5]}
+        frameloop="demand"         // major performance improvement
+        dpr={[1, 1.5]}             // optimized DPR
         camera={{ position: [0, 0, 1] }}
       >
         <Suspense fallback={null}>

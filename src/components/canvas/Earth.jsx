@@ -6,8 +6,8 @@ import CanvasLoader from "../Loader";
 import { ThemeContext } from "../../context/ThemeContext";
 
 const Earth = ({ isMobile,darkTheme }) => {
-const { scene, animations } = useGLTF("./drone/drone_concept-superopt.glb");
-useGLTF.preload("./drone/drone_concept-superopt.glb");
+const { scene, animations } =  useGLTF("./drone/drone_concept-superopt.glb");
+
   const mixer = useRef(null);
 
   useEffect(() => {
@@ -28,14 +28,14 @@ useGLTF.preload("./drone/drone_concept-superopt.glb");
 
   return (
     <mesh>
-      <hemisphereLight intensity={isMobile || darkTheme ? 4 :  7}  />
+      <hemisphereLight intensity={isMobile || darkTheme ? 3.5 : 4} />
       <spotLight
         position={[-20, 50, 10]}
         angle={0.12}
         penumbra={1}
-        castShadow={!isMobile} // Disable shadows for mobile to boost performance
+        castShadow={false} // Disable shadows for mobile to boost performance
       />
-      <pointLight intensity={isMobile ? 3 : 8} />
+      <pointLight intensity={isMobile ? 2 : 5} />
       <primitive
         object={scene}
         scale={scale}
@@ -62,8 +62,8 @@ const EarthCanvas = () => {
   return (
     <Canvas
      performance={{ min: 0.5 }} 
-      shadows
-       frameloop="demand" // Optimize by rendering only when necessary
+      shadows={false}
+       frameloop="auto" // Optimize by rendering only when necessary
       dpr={[isMobile ? 0.5 : 1, 2]} // Reduce dpr for mobile to save resources
     gl={{
         antialias: true,

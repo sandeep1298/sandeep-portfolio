@@ -5,8 +5,8 @@ import CanvasLoader from "../Loader";
 import { ThemeContext } from "../../context/ThemeContext";
 
 const Computers = ({ isMobile,darkTheme }) => {
-  const computer = useMemo(() => useGLTF("./desktop_pc/wall-e_and_eve-opt.glb"), []);
-  useGLTF.preload("./desktop_pc/wall-e_and_eve-opt.glb");
+  const computer =  useGLTF("./desktop_pc/wall-e_and_eve-opt.glb")
+ 
 
   return (
     <mesh>

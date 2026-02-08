@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import { styles } from "../styles";
 import { ComputersCanvas } from "./canvas";
+import LazyCanvas from "./utils/LazyCanvas";
 
 const Hero = () => {
  
@@ -9,7 +10,7 @@ const Hero = () => {
   const [text, count] = useTypewriter({
     words: [
       "Full Stack Engineer",
-      "with 4.3 years of experience",
+      "with 4.3+ years of experience",
       "in Developing, and Maintaining Software Web Applications.",
     ],
     loop: true,
@@ -41,7 +42,9 @@ const Hero = () => {
         </div>
         <div className="flex-grow small_grow_none"></div>
         <div className='sm:hidden width_in_pixels h-full height_small_screen'>
-        <ComputersCanvas />
+          <LazyCanvas height="550px">
+            <ComputersCanvas />
+        </LazyCanvas>
       </div>
       </div>
    

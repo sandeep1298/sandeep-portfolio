@@ -7,7 +7,7 @@ import Loader from "./utils/Loader";
 import { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
-
+import { useGLTF } from "@react-three/drei";
 // Lazy loading components
 const Contact = lazy(() => import("./components/Contact"));
 const Experience = lazy(() => import("./components/Experience"));
@@ -20,7 +20,9 @@ const StarsCanvas = lazy(() => import("./components/canvas/Stars.jsx"));
 function App() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
+  useGLTF.preload("./drone/drone_concept-superopt.glb");
+  useGLTF.preload("./desktop_pc/wall-e_and_eve-opt.glb");
+  
   useEffect(() => {
     setIsLoading(false);
   }, []);

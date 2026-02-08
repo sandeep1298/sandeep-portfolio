@@ -79,10 +79,6 @@ import {
       name: "TailWind Css",
       icon: tailwind,
     },
-     {
-      name: "Grafana",
-      icon: grafana,
-    },
     {
       name: "Node JS",
       icon: nodejs,
@@ -142,9 +138,8 @@ import {
       points: [
         "Developed a healthcare platform for B2C and B2B, allowing users to create and sell courses, with individual dashboards for instructors and learners, and the ability to organize online or offline events.",
         "Collaborating with cross-functional teams including designers, and other developers to create high-quality products.",
-        "Implemented a chat interface for health-related queries and solutions.",
-        "Solved major challenges that occurred during development and assisted other team members during difficult times to resolve issues.",
-        "Proven ability to lead and motivate teams towards achieving goals while fostering collaboration and innovation.",
+        "Implemented a healthcare chat interface, improving user engagement and support responsiveness.",
+        "Led and mentored team members, improving collaboration, code quality, and timely delivery of project milestones.",
         "Technologies: React JS, Redux, JavaScript, Next JS, Bootstrap, Framer-motion, Node JS, Express JS, Jest"
       ],
     },
@@ -155,11 +150,11 @@ import {
       iconBg: "#ffff",
       date: "May 2025 - Dec 2025",
       points: [
-        "Worked on a low-code enterprise platform, modernizing the UI and delivering customizable features to improve usability and flexibility.",
+        "Modernized the UI of a low-code enterprise platform by building configurable and customizable components, improving usability, performance, and workflow flexibility.",
         "Designed and developed innovative data visualization dashboards using advanced charting techniques, introducing new visual formats and supporting BI developers with scripting and integration.",
         "Implemented browser-based voice and video calling functionality integrated with SIP servers to enable real-time communication.",
         "Delivered hybrid mobile applications by serving web views within Android (APK) and iOS builds, ensuring consistent cross-platform functionality.",
-        "Technologies: React JS, JavaScript, TypeScript, Grafana, Docker, Vue JS, Expo"
+        "Technologies: React JS, JavaScript, TypeScript, Docker, Vue JS, Expo"
       ],
     }
   ];
@@ -194,7 +189,7 @@ import {
      
     },
      {
-      name: "Automax",
+      name: "Automax 3.0",
       description:
         "Automax is a low-code platform that helps organizations automate workflows and incident management to enable faster resolutions, improved collaboration, and scalable operations.",
      

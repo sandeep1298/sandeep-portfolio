@@ -196,7 +196,7 @@ const Contact = () => {
         >
           <div className="w-full h-[600px]">
             <LazyCanvas height="100%">
-              <EarthCanvas />
+              {({ active }) => <EarthCanvas active={active} />}
             </LazyCanvas>
           </div>
         </motion.div>

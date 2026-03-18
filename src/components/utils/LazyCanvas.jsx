@@ -1,33 +1,50 @@
 // LazyCanvas.jsx
 import { useEffect, useRef, useState } from "react";
 
-export default function LazyCanvas({ children, height = "500px" }) {
+export default function LazyCanvas({
+  children,
+  height = "500px",
+  threshold = 0.1,
+  rootMargin = "200px 0px",
+}) {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const [hasEnteredView, setHasEnteredView] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
+    const observedNode = ref.current;
+    if (!observedNode) return undefined;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
+        const nextIsActive = entry.isIntersecting;
+        setIsActive((previous) =>
+          previous === nextIsActive ? previous : nextIsActive,
+        );
+        if (nextIsActive) {
+          setHasEnteredView(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold, rootMargin }
     );
 
-    if (ref.current) observer.observe(ref.current);
-  }, []);
+    observer.observe(observedNode);
+
+    return () => observer.disconnect();
+  }, [rootMargin, threshold]);
+
+  const content =
+    typeof children === "function" ? children({ active: isActive }) : children;
 
   return (
     <div
       ref={ref}
       style={{
-        height,      // <-- FIXED HEIGHT = Canvas gets correct layout
+        height,
         width: "100%",
       }}
     >
-      {visible ? children : null}
+      {hasEnteredView ? content : null}
     </div>
   );
 }

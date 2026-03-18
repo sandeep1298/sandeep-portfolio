@@ -43,9 +43,9 @@ const Hero = () => {
         <div className="flex-grow small_grow_none"></div>
         <div className='sm:hidden width_in_pixels h-full height_small_screen'>
           <LazyCanvas height="550px">
-            <ComputersCanvas />
-        </LazyCanvas>
-      </div>
+            {({ active }) => <ComputersCanvas active={active} />}
+          </LazyCanvas>
+        </div>
       </div>
    
       

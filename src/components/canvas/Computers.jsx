@@ -1,6 +1,6 @@
-import React, { Suspense, useEffect, useState, useMemo, useContext } from "react";
+import React, { Suspense, useContext, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 import { ThemeContext } from "../../context/ThemeContext";
 
@@ -24,7 +24,7 @@ const Computers = ({ isMobile,darkTheme }) => {
   );
 };
 
-const ComputersCanvas = () => {
+const ComputersCanvas = ({ active = true }) => {
   const [isMobile, setIsMobile] = useState(false);
   
   const { darkTheme } = useContext(ThemeContext);
@@ -41,36 +41,35 @@ const ComputersCanvas = () => {
 
   return (
     <Canvas
-    performance={{ min: 0.5 }} 
-       frameloop="demand"                   // Render only when needed
-      shadows={false}                    // Disable shadows on mobile
-     dpr={[1, isMobile ? 1.2 : 1.2]}      // Reduce dpr for mobile
-   camera={{ position: [15, 2, 5], fov: 30 }}
-    gl={{
-    antialias: true,
-    preserveDrawingBuffer: false,
-    powerPreference: "default",
-     failIfMajorPerformanceCaveat: false,
-  }}
-    onCreated={({ gl }) => {
-    gl.getContext().canvas.addEventListener("webglcontextlost", (e) => {
-      e.preventDefault();
-      console.warn("WebGL context lost");
-    });
-  }}
-  
+      performance={{ min: 0.5 }}
+      frameloop={active ? "always" : "never"}
+      shadows={false}
+      dpr={[1, isMobile ? 1 : 1.15]}
+      camera={{ position: [15, 2, 5], fov: 30 }}
+      gl={{
+        antialias: true,
+        preserveDrawingBuffer: false,
+        powerPreference: "default",
+        failIfMajorPerformanceCaveat: false,
+      }}
+      onCreated={({ gl }) => {
+        gl.getContext().canvas.addEventListener("webglcontextlost", (e) => {
+          e.preventDefault();
+          console.warn("WebGL context lost");
+        });
+      }}
     >
       <Suspense fallback={<CanvasLoader />} >
         <OrbitControls
+          enabled={active}
           enableZoom={false}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
-          autoRotate={true}           
-          autoRotateSpeed={0.5} 
+          autoRotate={active}
+          autoRotateSpeed={0.35}
         />
         <Computers isMobile={isMobile} darkTheme={darkTheme} />
       </Suspense>
-      <Preload all />
     </Canvas>
   );
 };

@@ -17,34 +17,59 @@ const Tech = lazy(() => import("./components/Tech"));
 const Works = lazy(() => import("./components/Works"));
 const StarsCanvas = lazy(() => import("./components/canvas/Stars.jsx"));
 
+useGLTF.preload("./drone/drone_concept-superopt.glb");
+useGLTF.preload("./desktop_pc/wall-e_and_eve-opt.glb");
+
 function App() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  useGLTF.preload("./drone/drone_concept-superopt.glb");
-  useGLTF.preload("./desktop_pc/wall-e_and_eve-opt.glb");
+  const [showanim, setShowanim] = useState(false);
+  const [navbarScrolled, setNavbarScrolled] = useState(false);
   
   useEffect(() => {
     setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 500) {
-        setShowBackToTop(true);
-      } else {
-        setShowBackToTop(false);
-        setShowanim(false);
-      }
+    let frameId = null;
+
+    const updateScrollState = () => {
+      const scrollY = window.scrollY;
+      const nextNavbarScrolled = scrollY > 50;
+      const nextBackToTopVisible = scrollY > 500;
+
+      setNavbarScrolled((previous) =>
+        previous === nextNavbarScrolled ? previous : nextNavbarScrolled,
+      );
+      setShowBackToTop((previous) =>
+        previous === nextBackToTopVisible ? previous : nextBackToTopVisible,
+      );
+
+      frameId = null;
     };
 
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      if (frameId !== null) return;
+
+      frameId = window.requestAnimationFrame(updateScrollState);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
     };
   }, []);
 
-  const [showanim, setShowanim] = useState(false);
+  useEffect(() => {
+    if (!showBackToTop && showanim) {
+      setShowanim(false);
+    }
+  }, [showBackToTop, showanim]);
 
   const handleBackToTop = () => {
     setShowanim(true);
@@ -60,7 +85,7 @@ function App() {
             <div className="relative z-0 w-full">
               <div className='bg-cover bg-no-repeat bg-center'>
                 <Suspense fallback={<Loader />}>
-                  <Navbar />
+                  <Navbar scrolled={navbarScrolled} />
                   <div className='relative z-0'>
                     <Hero />
                     <StarsCanvas />
@@ -77,9 +102,7 @@ function App() {
               <div className='relative z-0 mb-10'>
                 <Suspense fallback={<Loader />}>
                   <Contact />
-                  <div className="sm:hidden">
                   <StarsCanvas />
-                  </div>
                 </Suspense>
               </div>
               <hr className="line_custom" />

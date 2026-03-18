@@ -1,11 +1,11 @@
 import React, { Suspense, useEffect, useRef, useState, useMemo, useContext } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import { AnimationMixer } from "three";
 import CanvasLoader from "../Loader";
 import { ThemeContext } from "../../context/ThemeContext";
 
-const Earth = ({ isMobile,darkTheme }) => {
+const Earth = ({ isMobile,darkTheme, active }) => {
 const { scene, animations } =  useGLTF("./drone/drone_concept-superopt.glb");
 
   const mixer = useRef(null);
@@ -20,7 +20,7 @@ const { scene, animations } =  useGLTF("./drone/drone_concept-superopt.glb");
     }
   }, [animations, scene]);
    useFrame((_, delta) => {
-    if (mixer.current) mixer.current.update(delta);
+    if (active && mixer.current) mixer.current.update(delta);
   });
 
 
@@ -46,7 +46,7 @@ const { scene, animations } =  useGLTF("./drone/drone_concept-superopt.glb");
   );
 };
 
-const EarthCanvas = () => {
+const EarthCanvas = ({ active = true }) => {
   const [isMobile, setIsMobile] = useState(false);
   const { darkTheme } = useContext(ThemeContext);
   useEffect(() => {
@@ -61,40 +61,39 @@ const EarthCanvas = () => {
 
   return (
     <Canvas
-     performance={{ min: 0.5 }} 
+      performance={{ min: 0.5 }} 
       shadows={false}
-       frameloop="auto" // Optimize by rendering only when necessary
-      dpr={[isMobile ? 0.5 : 1, 2]} // Reduce dpr for mobile to save resources
-    gl={{
+      frameloop={active ? "always" : "never"}
+      dpr={[1, isMobile ? 1 : 1.25]}
+      gl={{
         antialias: true,
         preserveDrawingBuffer: false,
         powerPreference: "default", 
         failIfMajorPerformanceCaveat: false,
       }}
-       onCreated={({ gl }) => {
-    gl.getContext().canvas.addEventListener("webglcontextlost", (e) => {
-      e.preventDefault();
-     // console.warn("WebGL context lost");
-    });
-  }}
+      onCreated={({ gl }) => {
+        gl.getContext().canvas.addEventListener("webglcontextlost", (e) => {
+          e.preventDefault();
+        });
+      }}
       camera={{
-        fov: isMobile ? 45 : 60, // Adjust camera for mobile to optimize view
+        fov: isMobile ? 45 : 60,
         near: 0.1,
         far: 200,
-        position: [isMobile ? -3 : -4, isMobile ? 2 : 3, isMobile ? 4 : 6], // Adjust position for mobile
+        position: [isMobile ? -3 : -4, isMobile ? 2 : 3, isMobile ? 4 : 6],
       }}
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
+          enabled={active}
           enableZoom={false}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
-          autoRotate={!isMobile} // Disable auto-rotate for mobile
-          autoRotateSpeed={isMobile ? 0.2 : 0.5} // Reduce speed for mobile
+          autoRotate={active && !isMobile}
+          autoRotateSpeed={isMobile ? 0.2 : 0.35}
         />
-        <Earth isMobile={isMobile}  darkTheme={darkTheme} />
+        <Earth isMobile={isMobile} darkTheme={darkTheme} active={active} />
       </Suspense>
-      <Preload all />
     </Canvas>
   );
 };

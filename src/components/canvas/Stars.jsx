@@ -1,17 +1,22 @@
-import { useRef, useMemo, Suspense, useContext } from "react";
+import { useRef, useMemo, Suspense, useContext, useEffect, useState } from "react";
 import { Canvas, useFrame, invalidate } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 import { ThemeContext } from "../../context/ThemeContext";
 
-const Stars = () => {
+const LARGE_SCREEN_QUERY = "(min-width: 1025px)";
+
+const Stars = ({ isLargeScreen }) => {
   const ref = useRef();
   const { darkTheme } = useContext(ThemeContext);
 
-  // Compute the particle positions ONCE
   const sphere = useMemo(
-    () => random.inSphere(new Float32Array(800 * 3), { radius: 1.2 }),
-    []
+    () =>
+      random.inSphere(
+        new Float32Array((isLargeScreen ? 600 : 800) * 3),
+        { radius: isLargeScreen ? 1.05 : 1.2 },
+      ),
+    [isLargeScreen]
   );
 
   useFrame((_, delta) => {
@@ -43,18 +48,78 @@ const Stars = () => {
 };
 
 const StarsCanvas = () => {
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [shouldRenderCanvas, setShouldRenderCanvas] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(LARGE_SCREEN_QUERY);
+    let idleCallbackId = null;
+    let timeoutId = null;
+
+    const clearScheduledRender = () => {
+      if (idleCallbackId !== null && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleCallbackId);
+        idleCallbackId = null;
+      }
+
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+    };
+
+    const scheduleCanvasRender = (matches) => {
+      setIsLargeScreen(matches);
+
+      if (!matches) {
+        setShouldRenderCanvas(true);
+        return;
+      }
+
+      setShouldRenderCanvas(false);
+
+      const enableCanvas = () => {
+        setShouldRenderCanvas(true);
+      };
+
+      if ("requestIdleCallback" in window) {
+        idleCallbackId = window.requestIdleCallback(enableCanvas, {
+          timeout: 1200,
+        });
+      } else {
+        timeoutId = window.setTimeout(enableCanvas, 250);
+      }
+    };
+
+    scheduleCanvasRender(mediaQuery.matches);
+
+    const handleChange = (event) => {
+      clearScheduledRender();
+      scheduleCanvasRender(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+      clearScheduledRender();
+    };
+  }, []);
+
   return (
     <div className="w-full h-auto absolute inset-0 z-[-1]">
-      <Canvas
-        frameloop="demand"         // major performance improvement
-        dpr={[1, 1.5]}             // optimized DPR
-        camera={{ position: [0, 0, 1] }}
-      >
-        <Suspense fallback={null}>
-          <Stars />
-        </Suspense>
-        <Preload all />
-      </Canvas>
+      {shouldRenderCanvas ? (
+        <Canvas
+          frameloop="demand"
+          dpr={[1, isLargeScreen ? 1.1 : 1.5]}
+          camera={{ position: [0, 0, 1] }}
+        >
+          <Suspense fallback={null}>
+            <Stars isLargeScreen={isLargeScreen} />
+          </Suspense>
+          {!isLargeScreen ? <Preload all /> : null}
+        </Canvas>
+      ) : null}
     </div>
   );
 };

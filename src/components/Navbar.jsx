@@ -1,32 +1,15 @@
-import React, { useEffect, useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { styles } from "../styles";
 import { navLinks } from "../constants";
 import { logo } from "../assets";
-import { Tooltip } from "react-tooltip";
 import { FaBars, FaTimes } from "react-icons/fa";
 import ThemeButton from "./utils/ThemeButton";
 
-const Navbar = () => {
+const Navbar = ({ scrolled }) => {
 
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      if (scrollTop > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <nav
@@ -115,4 +98,6 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+Navbar.displayName = "Navbar";
+
+export default React.memo(Navbar);

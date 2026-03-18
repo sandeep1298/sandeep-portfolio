@@ -110,6 +110,7 @@ const StarsCanvas = () => {
     <div className="w-full h-auto absolute inset-0 z-[-1]">
       {shouldRenderCanvas ? (
         <Canvas
+          key={isLargeScreen ? "stars-large" : "stars-default"}
           frameloop="demand"
           dpr={[1, isLargeScreen ? 1.1 : 1.5]}
           camera={{ position: [0, 0, 1] }}

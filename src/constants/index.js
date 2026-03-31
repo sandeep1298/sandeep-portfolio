@@ -140,7 +140,7 @@ import {
         "Collaborating with cross-functional teams including designers, and other developers to create high-quality products.",
         "Implemented a healthcare chat interface, improving user engagement and support responsiveness.",
         "Led and mentored team members, improving collaboration, code quality, and timely delivery of project milestones.",
-        "Technologies: React JS, Redux, JavaScript, Next JS, Bootstrap, Framer-motion, Node JS, Express JS, Jest"
+        "Technologies: React JS, Redux, JavaScript, TypeScript, Next JS, Bootstrap, Framer-motion, Node JS, Express JS, Jest"
       ],
     },
      {

@@ -8,7 +8,9 @@ import { ThemeContext } from "../context/ThemeContext";
 
 
 
-const ProjectCard = ({
+const ProjectCard = React.memo(({
+
+
   index,
   name,
   description,
@@ -53,7 +55,7 @@ const ProjectCard = ({
 
     </div>
   );
-};
+});
 
 const Works = () => {
   return (

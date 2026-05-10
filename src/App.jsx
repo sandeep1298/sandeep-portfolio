@@ -119,7 +119,7 @@ function App() {
                 data-tooltip-id="scroll-to-top"
                 data-tooltip-content="Go To Top"
               >
-                <img src={rocket} alt="Back To Top" />
+                <img src={rocket} alt="Back To Top" loading="lazy" />
               </button>
               {showanim === false ? <Tooltip id="scroll-to-top" className="tooltip_custom" place="top-end" /> : null}
             </>

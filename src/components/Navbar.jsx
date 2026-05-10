@@ -28,7 +28,7 @@ const Navbar = ({ scrolled }) => {
           window.scrollTo(0, 0);
         }}
       >
-        <img src={logo} alt='logo' className='w-15 h-12 object-contain' />
+        <img src={logo} alt='logo' className='w-15 h-12 object-contain' loading="lazy" />
         <p className='text-black  dark:text-white text-[18px] font-bold cursor-pointer flex sm:hidden'>
           Sandeep &nbsp;
           <span className='sm:block hidden'> | Software Developer</span>

@@ -10,7 +10,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { nextjswhite } from "../assets";
 
 
-const TechCard = ({ index, icon,name ,alt }) => {
+const TechCard = React.memo(({ index, icon,name ,alt }) => {
   const { darkTheme } = useContext(ThemeContext);
     const displayIcon =
     name === "NextJS" && darkTheme ? nextjswhite : icon;
@@ -21,7 +21,7 @@ const TechCard = ({ index, icon,name ,alt }) => {
         <motion.div
           data-tooltip-id="icons"
           data-tooltip-content={name}
-          variants={bounceInRandom(0.3, 1)}
+          variants={bounceInRandom(0.3, 1, index)}
           className=" w-28 h-28  sm:w-20 sm:h-20 md:w-24 md:h-24 bg-common_voilet_color rounded-full shadow-card transition-all duration-300 select-none"
         >
           <div
@@ -38,8 +38,8 @@ const TechCard = ({ index, icon,name ,alt }) => {
         </motion.div>
       </Tilt>
     </>
-  )
-}
+  );
+});
 
 const Tech = () => {
   return (

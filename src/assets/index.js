@@ -29,6 +29,7 @@ import grafana from './tech/Grafana.svg';
 import rocket from "./rocket.svg";
 import docker from "./tech/Docker.svg";
 import jest from "./tech/Jest.svg";
+import ec2 from "./tech/aws-ec2.svg";
 
 
 export {
@@ -59,5 +60,6 @@ export {
  grafana,
  docker,
  leader,
- jest
+ jest,
+ ec2
 };

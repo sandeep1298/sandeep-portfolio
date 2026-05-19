@@ -11,7 +11,7 @@ const Hero = () => {
     words: [
       "Full Stack Engineer",
       "with 4.3+ years of experience",
-      "in Developing, and Maintaining Software Web Applications.",
+      "in designing, developing, and maintaining scalable web applications.",
     ],
     loop: true,
     delaySpeed: 900,

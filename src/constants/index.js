@@ -21,7 +21,8 @@ import {
     grafana,
     docker,
     leader,
-    jest
+    jest,
+    ec2
   } from "../assets";
   
   export const navLinks = [
@@ -43,19 +44,6 @@ import {
  
   const technologies = [
     {
-      name: "HTML 5",
-      icon: html,
-    },
-    {
-      name: "CSS 3",
-      icon: css,
-    },
-    {
-      name: "JavaScript",
-      icon: javascript,
-    },
-   
-    {
       name: "React JS",
       icon: reactjs,
     },
@@ -66,6 +54,23 @@ import {
     {
       name: "NextJS",
       icon: nextjs,
+    },
+    {
+      name: "JavaScript",
+      icon: javascript,
+    },
+   {
+      name: "TypeScript",
+      icon: typescript,
+    },
+   
+     {
+      name: "HTML 5",
+      icon: html,
+    },
+    {
+      name: "CSS 3",
+      icon: css,
     },
     {
       name: "Bootstrap",
@@ -87,22 +92,25 @@ import {
       name: "MongoDB",
       icon: mongodb,
     },
-    {
-      name: "git",
-      icon: git,
+     {
+      name: "Jest",
+      icon: jest,
     },
+   
       {
       name: "Docker",
       icon: docker,
     },
-    {
-      name: "Jest",
-      icon: jest,
+     {
+      name: "Aws Ec2",
+      icon: ec2,
     },
-   {
-      name: "TypeScript",
-      icon: typescript,
+     {
+      name: "git",
+      icon: git,
     },
+    
+   
   ];
   
   const experiences = [
@@ -139,8 +147,8 @@ import {
         "Developed a healthcare platform for B2C and B2B, allowing users to create and sell courses, with individual dashboards for instructors and learners, and the ability to organize online or offline events.",
         "Collaborating with cross-functional teams including designers, and other developers to create high-quality products.",
         "Implemented a healthcare chat interface, improving user engagement and support responsiveness.",
-        "Led and mentored team members, improving collaboration, code quality, and timely delivery of project milestones.",
-        "Technologies: React JS, Redux, JavaScript, TypeScript, Next JS, Bootstrap, Framer-motion, Node JS, Express JS, Nginx, Jest"
+        "Led and mentored 3 junior developers, improving collaboration, code quality, and timely delivery of project milestones.",
+        "Technologies: React JS, Redux, JavaScript, TypeScript, Next JS, Bootstrap, Node JS, Express JS, AWS EC2, Jest"
       ],
     },
      {

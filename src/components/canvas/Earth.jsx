@@ -1,30 +1,40 @@
-import React, { Suspense, useEffect, useRef, useState, useMemo, useContext } from "react";
+import { Suspense, useEffect, useRef, useMemo, useContext, memo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { AnimationMixer } from "three";
 import CanvasLoader from "../Loader";
 import { ThemeContext } from "../../context/ThemeContext";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
-const Earth = ({ isMobile,darkTheme, active }) => {
-const { scene, animations } =  useGLTF("./drone/drone_concept-superopt.glb");
+const MODEL_PATH = "./drone/drone_concept-superopt.glb";
 
+const Earth = memo(function Earth({ isMobile, darkTheme, active }) {
+  const { scene, animations } = useGLTF(MODEL_PATH);
   const mixer = useRef(null);
 
   useEffect(() => {
-    if (animations && animations.length > 0) {
-      mixer.current = new AnimationMixer(scene);
-      animations.forEach((clip) => {
-        const action = mixer.current.clipAction(clip);
-        action.play();
-      });
-    }
+    if (!animations?.length) return undefined;
+
+    mixer.current = new AnimationMixer(scene);
+    animations.forEach((clip) => {
+      mixer.current.clipAction(clip).play();
+    });
+
+    return () => {
+      if (mixer.current) {
+        mixer.current.stopAllAction();
+        mixer.current = null;
+      }
+    };
   }, [animations, scene]);
-   useFrame((_, delta) => {
-    if (active && mixer.current) mixer.current.update(delta);
+
+  useFrame((_, delta) => {
+    if (active && mixer.current) {
+      mixer.current.update(delta);
+    }
   });
 
-
-  const scale = useMemo(() => (isMobile ? 0.9 : 1.3), [isMobile]); // Dynamic scaling based on screen size
+  const scale = useMemo(() => (isMobile ? 0.9 : 1.3), [isMobile]);
 
   return (
     <mesh>
@@ -33,47 +43,44 @@ const { scene, animations } =  useGLTF("./drone/drone_concept-superopt.glb");
         position={[-20, 50, 10]}
         angle={0.12}
         penumbra={1}
-        castShadow={false} // Disable shadows for mobile to boost performance
+        castShadow={false}
       />
       <pointLight intensity={isMobile ? 2 : 5} />
       <primitive
         object={scene}
         scale={scale}
-        position={isMobile ? [0, 0, 0] : [0, 0, 0]}
+        position={[0, 0, 0]}
         rotation={[-0.7, -20, -0.7]}
       />
     </mesh>
   );
-};
+});
 
 const EarthCanvas = ({ active = true }) => {
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 500px)");
   const { darkTheme } = useContext(ThemeContext);
+
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 500px)");
-    setIsMobile(mediaQuery.matches);
-
-    const handleMediaQueryChange = (event) => setIsMobile(event.matches);
-    mediaQuery.addEventListener("change", handleMediaQueryChange);
-
-    return () => mediaQuery.removeEventListener("change", handleMediaQueryChange);
-  }, []);
+    if (active) {
+      useGLTF.preload(MODEL_PATH);
+    }
+  }, [active]);
 
   return (
     <Canvas
-      performance={{ min: 0.5 }} 
+      performance={{ min: 0.5, max: 1, debounce: 200 }}
       shadows={false}
       frameloop={active ? "always" : "never"}
-      dpr={[1, isMobile ? 1 : 1.25]}
+      dpr={[1, isMobile ? 1 : 1.2]}
       gl={{
-        antialias: true,
+        antialias: !isMobile,
         preserveDrawingBuffer: false,
-        powerPreference: "default", 
+        powerPreference: "high-performance",
         failIfMajorPerformanceCaveat: false,
       }}
       onCreated={({ gl }) => {
-        gl.getContext().canvas.addEventListener("webglcontextlost", (e) => {
-          e.preventDefault();
+        gl.getContext().canvas.addEventListener("webglcontextlost", (event) => {
+          event.preventDefault();
         });
       }}
       camera={{
@@ -98,4 +105,4 @@ const EarthCanvas = ({ active = true }) => {
   );
 };
 
-export default EarthCanvas;
+export default memo(EarthCanvas);

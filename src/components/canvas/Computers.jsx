@@ -1,17 +1,18 @@
-import React, { Suspense, useContext, useEffect, useState } from "react";
+import { Suspense, useContext, useEffect, memo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 import { ThemeContext } from "../../context/ThemeContext";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
-const Computers = ({ isMobile,darkTheme }) => {
-  const computer =  useGLTF("./desktop_pc/wall-e_and_eve-opt.glb")
- 
+const MODEL_PATH = "./desktop_pc/wall-e_and_eve-opt.glb";
+
+const Computers = memo(function Computers({ isMobile, darkTheme }) {
+  const computer = useGLTF(MODEL_PATH);
 
   return (
     <mesh>
-      <hemisphereLight intensity={ darkTheme ? 0.8 : 0}  />
-      
+      <hemisphereLight intensity={darkTheme ? 0.8 : 0} />
       <pointLight intensity={isMobile ? 30 : 40} />
       <ambientLight intensity={0.5} />
       <primitive
@@ -22,44 +23,38 @@ const Computers = ({ isMobile,darkTheme }) => {
       />
     </mesh>
   );
-};
+});
 
 const ComputersCanvas = ({ active = true }) => {
-  const [isMobile, setIsMobile] = useState(false);
-  
+  const isMobile = useMediaQuery("(max-width: 500px)");
   const { darkTheme } = useContext(ThemeContext);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 500px)");
-    setIsMobile(mediaQuery.matches);
-
-    const handleMediaQueryChange = (event) => setIsMobile(event.matches);
-    mediaQuery.addEventListener("change", handleMediaQueryChange);
-
-    return () => mediaQuery.removeEventListener("change", handleMediaQueryChange);
-  }, []);
+    if (active) {
+      useGLTF.preload(MODEL_PATH);
+    }
+  }, [active]);
 
   return (
     <Canvas
-      performance={{ min: 0.5 }}
+      performance={{ min: 0.5, max: 1, debounce: 200 }}
       frameloop={active ? "always" : "never"}
       shadows={false}
-      dpr={[1, isMobile ? 1 : 1.15]}
+      dpr={[1, isMobile ? 1 : 1.1]}
       camera={{ position: [15, 2, 5], fov: 30 }}
       gl={{
-        antialias: true,
+        antialias: !isMobile,
         preserveDrawingBuffer: false,
-        powerPreference: "default",
+        powerPreference: "high-performance",
         failIfMajorPerformanceCaveat: false,
       }}
       onCreated={({ gl }) => {
-        gl.getContext().canvas.addEventListener("webglcontextlost", (e) => {
-          e.preventDefault();
-          console.warn("WebGL context lost");
+        gl.getContext().canvas.addEventListener("webglcontextlost", (event) => {
+          event.preventDefault();
         });
       }}
     >
-      <Suspense fallback={<CanvasLoader />} >
+      <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           enabled={active}
           enableZoom={false}
@@ -74,4 +69,4 @@ const ComputersCanvas = ({ active = true }) => {
   );
 };
 
-export default ComputersCanvas;
+export default memo(ComputersCanvas);

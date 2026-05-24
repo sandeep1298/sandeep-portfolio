@@ -1,37 +1,34 @@
-// LazyCanvas.jsx
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, memo } from "react";
+import { useInViewport } from "../../hooks/useInViewport";
+import { useScrollIdle } from "../../hooks/useScrollIdle";
+import { useWebGLFocus } from "../../hooks/useWebGLFocus";
+import { usePageVisible } from "../../hooks/usePageVisible";
 
-export default function LazyCanvas({
+function LazyCanvas({
   children,
+  canvasId,
   height = "500px",
-  threshold = 0.1,
-  rootMargin = "200px 0px",
+  threshold = 0.15,
+  rootMargin = "0px 0px",
+  enterDelayMs = 220,
 }) {
-  const ref = useRef(null);
-  const [hasEnteredView, setHasEnteredView] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const isScrolling = useScrollIdle();
+  const isPageVisible = usePageVisible();
+  const { ref, isVisible, intersectionRatio } = useInViewport({
+    threshold,
+    rootMargin,
+    enterDelayMs,
+  });
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    const observedNode = ref.current;
-    if (!observedNode) return undefined;
+    if (isVisible) {
+      setHasMounted(true);
+    }
+  }, [isVisible]);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const nextIsActive = entry.isIntersecting;
-        setIsActive((previous) =>
-          previous === nextIsActive ? previous : nextIsActive,
-        );
-        if (nextIsActive) {
-          setHasEnteredView(true);
-        }
-      },
-      { threshold, rootMargin }
-    );
-
-    observer.observe(observedNode);
-
-    return () => observer.disconnect();
-  }, [rootMargin, threshold]);
+  const isFocused = useWebGLFocus(canvasId, isVisible, intersectionRatio);
+  const isActive = isFocused && !isScrolling && isPageVisible;
 
   const content =
     typeof children === "function" ? children({ active: isActive }) : children;
@@ -39,12 +36,12 @@ export default function LazyCanvas({
   return (
     <div
       ref={ref}
-      style={{
-        height,
-        width: "100%",
-      }}
+      style={{ height, width: "100%" }}
+      className={isActive ? undefined : "pointer-events-none"}
     >
-      {hasEnteredView ? content : null}
+      {hasMounted ? content : null}
     </div>
   );
 }
+
+export default memo(LazyCanvas);

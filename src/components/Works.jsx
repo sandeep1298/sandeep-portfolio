@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { motion } from "framer-motion";
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
@@ -18,11 +18,15 @@ const ProjectCard = React.memo(({
 }) => {
 
     const { darkTheme } = useContext(ThemeContext);
+  const variants = useMemo(
+    () => fadeIn("up", "spring", index * 0.5, 0.75),
+    [index],
+  );
 
   return (
     <div className="w-96">
  <motion.div
-  variants={fadeIn("up", "spring", index * 0.5, 0.75)}
+  variants={variants}
   className="w-full"
 >
   <div className="w-full rounded-2xl flex justify-center flex-wrap transition-all duration-300">

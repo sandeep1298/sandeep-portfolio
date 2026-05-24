@@ -1,159 +1,125 @@
 import { BrowserRouter } from "react-router-dom";
-import { useState, useEffect, lazy, Suspense } from "react";
-import { rocket } from "./assets";
+import { lazy, Suspense, memo, useEffect, useState } from "react";
 import Footer from "./components/Footer";
-import { Tooltip } from "react-tooltip";
 import Loader from "./utils/Loader";
-import { Toaster } from 'react-hot-toast';
-import { SpeedInsights } from '@vercel/speed-insights/react';
+import {
+  ScrollChromeProvider,
+  ScrollChromeNavbar,
+  ScrollChromeBackToTop,
+} from "./components/ScrollChrome";
 
-import { useGLTF } from "@react-three/drei";
-// Lazy loading components
 const Contact = lazy(() => import("./components/Contact"));
 const Experience = lazy(() => import("./components/Experience"));
 const Hero = lazy(() => import("./components/Hero"));
-const Navbar = lazy(() => import("./components/Navbar"));
 const Tech = lazy(() => import("./components/Tech"));
 const Works = lazy(() => import("./components/Works"));
-const StarsCanvas = lazy(() => import("./components/canvas/Stars.jsx"));
 
-useGLTF.preload("./drone/drone_concept-superopt.glb");
-useGLTF.preload("./desktop_pc/wall-e_and_eve-opt.glb");
+const Toaster = lazy(() =>
+  import("react-hot-toast").then((module) => ({ default: module.Toaster })),
+);
+
+const SpeedInsights = lazy(() =>
+  import("@vercel/speed-insights/react").then((module) => ({
+    default: module.SpeedInsights,
+  })),
+);
+
+const MainContent = memo(function MainContent() {
+  return (
+    <div className="relative z-0 w-full">
+      <div className="bg-cover bg-no-repeat bg-center">
+        <Suspense fallback={<Loader />}>
+          <Hero />
+        </Suspense>
+      </div>
+
+      <div className="mt-12">
+        <Suspense fallback={<Loader />}>
+          <Tech />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Experience />
+          <Works />
+        </Suspense>
+      </div>
+
+      <div className="relative z-0 mb-10">
+        <Suspense fallback={<Loader />}>
+          <Contact />
+        </Suspense>
+      </div>
+
+      <hr className="line_custom" />
+      <Suspense fallback={<Loader />}>
+        <Footer />
+      </Suspense>
+    </div>
+  );
+});
 
 function App() {
-  const [showBackToTop, setShowBackToTop] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showanim, setShowanim] = useState(false);
-  const [navbarScrolled, setNavbarScrolled] = useState(false);
-  
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
+  const [isBootstrapped, setIsBootstrapped] = useState(false);
 
   useEffect(() => {
-    let frameId = null;
+    let cancelled = false;
 
-    const updateScrollState = () => {
-      const scrollY = window.scrollY;
-      const nextNavbarScrolled = scrollY > 50;
-      const nextBackToTopVisible = scrollY > 500;
-
-      setNavbarScrolled((previous) =>
-        previous === nextNavbarScrolled ? previous : nextNavbarScrolled,
-      );
-      setShowBackToTop((previous) =>
-        previous === nextBackToTopVisible ? previous : nextBackToTopVisible,
-      );
-
-      frameId = null;
-    };
-
-    const handleScroll = () => {
-      if (frameId !== null) return;
-
-      frameId = window.requestAnimationFrame(updateScrollState);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Preload the first screen chunk so Navbar/ThemeButton don't show over Loader
+    Promise.all([import("./components/Hero")]).finally(() => {
+      if (!cancelled) {
+        setIsBootstrapped(true);
+      }
+    });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (frameId !== null) {
-        window.cancelAnimationFrame(frameId);
-      }
+      cancelled = true;
     };
   }, []);
 
-  useEffect(() => {
-    if (!showBackToTop && showanim) {
-      setShowanim(false);
-    }
-  }, [showBackToTop, showanim]);
-
-  const handleBackToTop = () => {
-    setShowanim(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  if (!isBootstrapped) {
+    return <Loader />;
+  }
 
   return (
-    <>
-      {isLoading ? <Loader /> : (
-        <div className="w-full overflow-hidden">
-          <SpeedInsights />
-          <BrowserRouter>
-            <div className="relative z-0 w-full">
-              <div className='bg-cover bg-no-repeat bg-center'>
-                <Suspense fallback={<Loader />}>
-                  <Navbar scrolled={navbarScrolled} />
-                  <div className='relative z-0'>
-                    <Hero />
-                    <StarsCanvas />
-                  </div>
-                </Suspense>
-              </div>
-              <div className="mt-12">
-                <Suspense fallback={<Loader />}>
-                  <Tech />
-                  <Experience />
-                  <Works />
-                </Suspense>
-              </div>
-              <div className='relative z-0 mb-10'>
-                <Suspense fallback={<Loader />}>
-                  <Contact />
-                  <StarsCanvas />
-                </Suspense>
-              </div>
-              <hr className="line_custom" />
-              <Suspense fallback={<Loader />}>
-                <Footer />
-              </Suspense>
-            </div>
-          </BrowserRouter>
-          {showBackToTop && (
-            <>
-              <button
-                className={`fixed bottom-4 right-4 p-2 cursor-pointer backToTop ${showanim ? "backToTopchange" : "backToTop"}`}
-                onClick={handleBackToTop}
-                data-tooltip-id="scroll-to-top"
-                data-tooltip-content="Go To Top"
-              >
-                <img src={rocket} alt="Back To Top" loading="lazy" />
-              </button>
-              {showanim === false ? <Tooltip id="scroll-to-top" className="tooltip_custom" place="top-end" /> : null}
-            </>
-          )}
-        </div>
-      )}
-
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        toastOptions={{
-          className: "w-100",
-          duration: 5000,
-          style: {
-            background: "#ffff",
-            color: "black",
-          },
-          success: {
-            duration: 3000,
-            theme: {
-              primary: "green",
-              secondary: "black",
+    <div className="w-full overflow-hidden">
+      <Suspense fallback={null}>
+        <SpeedInsights />
+      </Suspense>
+      <ScrollChromeProvider>
+        <BrowserRouter>
+          <ScrollChromeNavbar />
+          <MainContent />
+          <ScrollChromeBackToTop />
+        </BrowserRouter>
+      </ScrollChromeProvider>
+      <Suspense fallback={null}>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{
+            className: "w-100",
+            duration: 5000,
+            style: {
+              background: "#ffff",
+              color: "black",
             },
-          },
-          error: {
-            duration: 3000,
-            theme: {
-              primary: "red",
-              secondary: "blue",
+            success: {
+              duration: 3000,
+              theme: {
+                primary: "green",
+                secondary: "black",
+              },
             },
-          },
-        }}
-      />
-    </>
+            error: {
+              duration: 3000,
+              theme: {
+                primary: "red",
+                secondary: "blue",
+              },
+            },
+          }}
+        />
+      </Suspense>
+    </div>
   );
 }
 

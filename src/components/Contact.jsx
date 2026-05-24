@@ -1,6 +1,7 @@
-import React, { useState, useRef, useContext } from "react";
+import { lazy, Suspense, useState, useRef, useContext } from "react";
 import { motion } from "framer-motion";
-import { EarthCanvas } from "./canvas";
+
+const EarthCanvas = lazy(() => import("./canvas/Earth"));
 import { SectionWrapper } from "../hoc";
 import { slideIn, textVariant } from "../utils/motion";
 import { FaLinkedinIn } from "react-icons/fa";
@@ -9,6 +10,7 @@ import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
 import { ThemeContext } from "../context/ThemeContext";
 import LazyCanvas from "./utils/LazyCanvas";
+import StarsBackground from "./StarsBackground";
 
 const Contact = () => {
   const { darkTheme } = useContext(ThemeContext);
@@ -72,8 +74,9 @@ const Contact = () => {
   };
   return (
     <>
+      <StarsBackground />
       <div
-        className={`lg:mt-0 flex lg:flex-row md:flex-row  flex-wrap flex-col-reverse gap-10 justify-center place-content-center big_screen_hidden`}
+        className={`relative z-0 lg:mt-0 flex lg:flex-row md:flex-row flex-wrap flex-col-reverse gap-10 justify-center place-content-center big_screen_hidden`}
       >
         <motion.div
           variants={slideIn("left", "tween", 0.2, 1)}
@@ -195,8 +198,12 @@ const Contact = () => {
           className="xs:hidden lg:flex-1"
         >
           <div className="w-full h-[600px]">
-            <LazyCanvas height="100%">
-              {({ active }) => <EarthCanvas active={active} />}
+            <LazyCanvas canvasId="contact-earth" height="100%">
+              {({ active }) => (
+                <Suspense fallback={null}>
+                  <EarthCanvas active={active} />
+                </Suspense>
+              )}
             </LazyCanvas>
           </div>
         </motion.div>

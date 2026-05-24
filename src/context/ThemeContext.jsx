@@ -1,7 +1,12 @@
-// src/context/ThemeContext.jsx
-import React, { createContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 
-export const ThemeContext = createContext();
+export const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
   const [darkTheme, setDarkTheme] = useState(() => {
@@ -10,21 +15,20 @@ export const ThemeProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if (darkTheme) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
+    document.documentElement.classList.toggle("dark", darkTheme);
+    localStorage.setItem("theme", darkTheme ? "dark" : "light");
   }, [darkTheme]);
 
-  const toggleTheme = () => setDarkTheme((prev) => !prev);
+  const toggleTheme = useCallback(() => {
+    setDarkTheme((previous) => !previous);
+  }, []);
 
+  const value = useMemo(
+    () => ({ darkTheme, toggleTheme }),
+    [darkTheme, toggleTheme],
+  );
 
   return (
-    <ThemeContext.Provider value={{ darkTheme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 };

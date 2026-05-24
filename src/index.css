@@ -22,6 +22,21 @@ html {
 html.dark {
   background-color: black;
 }
+
+.section-surface {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* Soft circular glow for tech icons (no box-shadow spread lines) */
+.tech-card-glow {
+  filter: drop-shadow(0  0 42px rgba(33, 30, 53, 0.42));
+}
+
+html.dark .tech-card-glow {
+  filter: drop-shadow(0 0px 48px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 10px 28px rgba(145, 94, 255, 0.22));
+}
 .card_custom {
   position: relative;
   display: flex;

@@ -1,127 +1,104 @@
-import { useRef, useMemo, Suspense, useContext, useEffect, useState } from "react";
+import { useRef, useMemo, Suspense, useContext, useEffect } from "react";
 import { Canvas, useFrame, invalidate } from "@react-three/fiber";
-import { Points, PointMaterial, Preload } from "@react-three/drei";
+import { Points, PointMaterial } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 import { ThemeContext } from "../../context/ThemeContext";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 
 const LARGE_SCREEN_QUERY = "(min-width: 1025px)";
 
-const Stars = ({ isLargeScreen }) => {
+/** Restarts the render loop after tab focus / visibility return. */
+function StarsAnimationDriver({ isActive }) {
+  useEffect(() => {
+    if (!isActive) return undefined;
+
+    const kickRenderLoop = () => {
+      invalidate();
+    };
+
+    const handleVisibility = () => {
+      if (!document.hidden) {
+        kickRenderLoop();
+      }
+    };
+
+    kickRenderLoop();
+    document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("focus", kickRenderLoop);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("focus", kickRenderLoop);
+    };
+  }, [isActive]);
+
+  return null;
+}
+
+const Stars = ({ particleCount, isActive }) => {
   const ref = useRef();
   const { darkTheme } = useContext(ThemeContext);
 
   const sphere = useMemo(
     () =>
-      random.inSphere(
-        new Float32Array((isLargeScreen ? 600 : 800) * 3),
-        { radius: isLargeScreen ? 1.05 : 1.2 },
-      ),
-    [isLargeScreen]
+      random.inSphere(new Float32Array(particleCount * 3), {
+        radius: particleCount > 400 ? 1.05 : 1.2,
+      }),
+    [particleCount],
   );
 
   useFrame((_, delta) => {
-    if (ref.current) {
-      ref.current.rotation.x += delta * 0.02;
-      ref.current.rotation.y += delta * 0.02;
-      invalidate(); // Render only on change (with frameloop="demand")
-    }
+    if (!isActive || !ref.current) return;
+
+    ref.current.rotation.x += delta * 0.02;
+    ref.current.rotation.y += delta * 0.02;
   });
 
   return (
-    <group rotation={[0, 0, Math.PI / 4]}>
-      <Points
-        ref={ref}
-        positions={sphere}
-        stride={3}
-        frustumCulled
-      >
-        <PointMaterial
-          transparent
-          color={darkTheme ? "#ffffff" : "#000000"}
-          size={0.0025}
-          sizeAttenuation
-          depthWrite={false}
-        />
-      </Points>
-    </group>
+    <>
+      <StarsAnimationDriver isActive={isActive} />
+      <group rotation={[0, 0, Math.PI / 4]}>
+        <Points ref={ref} positions={sphere} stride={3} frustumCulled>
+          <PointMaterial
+            transparent
+            color={darkTheme ? "#ffffff" : "#000000"}
+            size={0.0032}
+            sizeAttenuation
+            depthWrite={false}
+          />
+        </Points>
+      </group>
+    </>
   );
 };
 
-const StarsCanvas = () => {
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
-  const [shouldRenderCanvas, setShouldRenderCanvas] = useState(false);
+const StarsCanvas = ({ isActive = true }) => {
+  const isLargeScreen = useMediaQuery(LARGE_SCREEN_QUERY);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(LARGE_SCREEN_QUERY);
-    let idleCallbackId = null;
-    let timeoutId = null;
+  const particleCount = useMemo(() => {
+    if (prefersReducedMotion) return 0;
+    if (isLargeScreen) return 300;
+    return 420;
+  }, [isLargeScreen, prefersReducedMotion]);
 
-    const clearScheduledRender = () => {
-      if (idleCallbackId !== null && "cancelIdleCallback" in window) {
-        window.cancelIdleCallback(idleCallbackId);
-        idleCallbackId = null;
-      }
-
-      if (timeoutId !== null) {
-        window.clearTimeout(timeoutId);
-        timeoutId = null;
-      }
-    };
-
-    const scheduleCanvasRender = (matches) => {
-      setIsLargeScreen(matches);
-
-      if (!matches) {
-        setShouldRenderCanvas(true);
-        return;
-      }
-
-      setShouldRenderCanvas(false);
-
-      const enableCanvas = () => {
-        setShouldRenderCanvas(true);
-      };
-
-      if ("requestIdleCallback" in window) {
-        idleCallbackId = window.requestIdleCallback(enableCanvas, {
-          timeout: 1200,
-        });
-      } else {
-        timeoutId = window.setTimeout(enableCanvas, 250);
-      }
-    };
-
-    scheduleCanvasRender(mediaQuery.matches);
-
-    const handleChange = (event) => {
-      clearScheduledRender();
-      scheduleCanvasRender(event.matches);
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange);
-      clearScheduledRender();
-    };
-  }, []);
+  if (particleCount === 0) {
+    return null;
+  }
 
   return (
-    <div className="w-full h-auto absolute inset-0 z-[-1]">
-      {shouldRenderCanvas ? (
-        <Canvas
-          key={isLargeScreen ? "stars-large" : "stars-default"}
-          frameloop="demand"
-          dpr={[1, isLargeScreen ? 1.1 : 1.5]}
-          camera={{ position: [0, 0, 1] }}
-        >
-          <Suspense fallback={null}>
-            <Stars isLargeScreen={isLargeScreen} />
-          </Suspense>
-          {!isLargeScreen ? <Preload all /> : null}
-        </Canvas>
-      ) : null}
-    </div>
+    <Canvas
+      frameloop={isActive ? "always" : "never"}
+      dpr={[1, isLargeScreen ? 1 : 1.2]}
+      camera={{ position: [0, 0, 1] }}
+      gl={{ powerPreference: "high-performance", antialias: false }}
+      style={{ width: "100%", height: "100%" }}
+    >
+      <Suspense fallback={null}>
+        <Stars particleCount={particleCount} isActive={isActive} />
+      </Suspense>
+    </Canvas>
   );
 };
 

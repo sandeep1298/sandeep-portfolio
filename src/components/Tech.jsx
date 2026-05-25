@@ -22,7 +22,7 @@ const TechCard = memo(({ index, icon, name, alt }) => {
 
   const displayIcon = name === "NextJS" && darkTheme ? nextjswhite : icon;
   const variants = useMemo(
-    () => bounceInRandom(0.2, 1.4, index, 0.22),
+    () => bounceInRandom(0, 0.5, index, 0.18),
     [index],
   );
 

@@ -59,7 +59,7 @@ const Stars = ({ particleCount, isActive }) => {
     <>
       <StarsAnimationDriver isActive={isActive} />
       <group rotation={[0, 0, Math.PI / 4]}>
-        <Points ref={ref} positions={sphere} stride={3} frustumCulled>
+        <Points key={particleCount} ref={ref} positions={sphere} stride={3} frustumCulled>
           <PointMaterial
             transparent
             color={darkTheme ? "#ffffff" : "#000000"}
@@ -89,6 +89,7 @@ const StarsCanvas = ({ isActive = true }) => {
 
   return (
     <Canvas
+      key={particleCount}
       frameloop={isActive ? "always" : "never"}
       dpr={[1, isLargeScreen ? 1 : 1.2]}
       camera={{ position: [0, 0, 1] }}

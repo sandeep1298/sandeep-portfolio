@@ -91,10 +91,10 @@ const BOUNCE_OFFSETS = [
  * @param {number} staggerStep - extra delay per index (seconds)
  */
 export const bounceInRandom = (
-  baseDelay = 0.35,
-  duration = 1.35,
+  baseDelay = 0,
+  duration = 0.5,
   index = 0,
-  staggerStep = 0.18,
+  staggerStep = 0.08,
 ) => {
   const [offsetX, offsetY] =
     BOUNCE_OFFSETS[Math.abs(index) % BOUNCE_OFFSETS.length];
@@ -114,8 +114,8 @@ export const bounceInRandom = (
         type: "spring",
         duration,
         delay,
-        stiffness: 65,
-        damping: 18,
+           stiffness: 120,
+        damping: 12,
       },
     },
   };

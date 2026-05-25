@@ -23,11 +23,6 @@ html.dark {
   background-color: black;
 }
 
-.section-surface {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 500px;
-}
-
 /* Soft circular glow for tech icons (no box-shadow spread lines) */
 .tech-card-glow {
   filter: drop-shadow(0  0 42px rgba(33, 30, 53, 0.42));

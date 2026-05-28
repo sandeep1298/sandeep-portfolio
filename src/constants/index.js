@@ -121,8 +121,7 @@ import {
       iconBg: "#383E56",
       date: "September 2020 - July 2021",
       points: [
-      "Developed a Progressive Web Application to assist medical aid and natural disaster relief, including donations for individuals affected by COVID-19.",
-      "Technologies: HTML5, CSS3, Bootstrap, React JS"
+      "Developed a Progressive Web Application (PWA) to support medical aid and disaster relief, enabling streamlined donations for individuals affected by COVID-19 with a fast, mobile-friendly experience."
       ],
     },
     {
@@ -132,9 +131,7 @@ import {
       iconBg: "#E6DEDD",
       date: "November 2021 - April 2022",
       points: [
-        "Developed an automation platform using Google Cloud Text-to-Speech, allowing users to input text, set delays, and adjust pitch, volume, and rate with input sliders.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Technologies: React JS, Node JS, MongoDB, SCSS"
+        "Developed an automation platform leveraging Google Cloud Text-to-Speech, enabling customizable audio output via interactive controls for delay, pitch, volume, and speech rate, reducing manual effort in content narration workflows."
       ],
     },
     {
@@ -144,11 +141,11 @@ import {
       iconBg: "#ffff",
       date: "Feb 2023 - Mar 2025",
       points: [
-        "Developed a healthcare platform for B2C and B2B, allowing users to create and sell courses, with individual dashboards for instructors and learners, and the ability to organize online or offline events.",
+        "Developed a healthcare learning platform for B2C and B2B users with course, sales, and event management features supported by dedicated dashboards, applying performance optimizations targeting Core Web Vitals and SEO improvements that reduced page load time by 35%.",
         "Collaborating with cross-functional teams including designers, and other developers to create high-quality products.",
         "Implemented a healthcare chat interface, improving user engagement and support responsiveness.",
+        "Deployed and maintained React-based web applications on AWS EC2, configuring scalable infrastructure and load balancing to ensure high availability across production environments.",
         "Led and mentored 3 junior developers, improving collaboration, code quality, and timely delivery of project milestones.",
-        "Technologies: React JS, Redux, JavaScript, TypeScript, Next JS, Bootstrap, Node JS, Express JS, AWS EC2, Jest"
       ],
     },
      {
@@ -159,10 +156,9 @@ import {
       date: "May 2025 - Dec 2025",
       points: [
         "Modernized the UI of a low-code enterprise platform by building configurable and customizable components, improving usability, performance, and workflow flexibility.",
-        "Designed and developed innovative data visualization dashboards using advanced charting techniques, introducing new visual formats and supporting BI developers with scripting and integration.",
+        "Designed and developed data visualization dashboards using advanced charting techniques, introducing new visual formats that accelerated insights delivery for BI developers.",
         "Implemented browser-based voice and video calling functionality integrated with SIP servers to enable real-time communication.",
         "Delivered hybrid mobile applications by serving web views within Android (APK) and iOS builds, ensuring consistent cross-platform functionality.",
-        "Technologies: React JS, JavaScript, TypeScript, Docker, Vue JS, Expo"
       ],
     }
   ];

@@ -37,6 +37,8 @@ export function ScrollChromeBackToTop() {
   return (
     <>
       <button
+        type="button"
+        aria-label="Back to top"
         className={`fixed bottom-4 right-4 p-2 cursor-pointer backToTop ${showanim ? "backToTopchange" : "backToTop"}`}
         onClick={handleBackToTop}
         data-tooltip-id="scroll-to-top"

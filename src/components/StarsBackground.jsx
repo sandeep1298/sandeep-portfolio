@@ -1,25 +1,41 @@
-import { lazy, Suspense, memo, useEffect, useState } from "react";
+import { lazy, Suspense, memo, useEffect, useRef, useState } from "react";
 import { useInViewport } from "../hooks/useInViewport";
 import { useScrollIdle } from "../hooks/useScrollIdle";
 import { usePageVisible } from "../hooks/usePageVisible";
 
 const StarsCanvas = lazy(() => import("./canvas/Stars.jsx"));
 
-const StarsBackground = ({ className = "absolute inset-0 z-[-1]" }) => {
+const StarsBackground = ({
+  className = "absolute inset-0 z-[-1]",
+  threshold = 0.08,
+  rootMargin = "0px 0px",
+  enterDelayMs = 150,
+  preloadRootMargin = rootMargin,
+  preloadThreshold = threshold,
+  preloadDelayMs = enterDelayMs,
+}) => {
+  const containerRef = useRef(null);
   const isScrolling = useScrollIdle();
   const isPageVisible = usePageVisible();
   const [hasMounted, setHasMounted] = useState(false);
   const { ref, isVisible } = useInViewport({
-    threshold: 0.08,
-    rootMargin: "0px 0px",
-    enterDelayMs: 150,
+    threshold,
+    rootMargin,
+    enterDelayMs,
+    targetRef: containerRef,
+  });
+  const { isVisible: shouldMount } = useInViewport({
+    threshold: preloadThreshold,
+    rootMargin: preloadRootMargin,
+    enterDelayMs: preloadDelayMs,
+    targetRef: containerRef,
   });
 
   useEffect(() => {
-    if (isVisible) {
+    if (shouldMount) {
       setHasMounted(true);
     }
-  }, [isVisible]);
+  }, [shouldMount]);
 
   const isActive = isVisible && !isScrolling && isPageVisible;
 

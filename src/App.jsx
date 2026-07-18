@@ -26,7 +26,7 @@ const SpeedInsights = lazy(() =>
 
 const MainContent = memo(function MainContent() {
   return (
-    <div className="relative z-0 w-full">
+    <main className="relative z-0 w-full">
       <div className="bg-cover bg-no-repeat bg-center">
         <Suspense fallback={<Loader />}>
           <Hero />
@@ -53,7 +53,7 @@ const MainContent = memo(function MainContent() {
       <Suspense fallback={<Loader />}>
         <Footer />
       </Suspense>
-    </div>
+    </main>
   );
 });
 
@@ -74,6 +74,32 @@ function App() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (!isBootstrapped) return undefined;
+
+    let cancelled = false;
+    let cleanupPreload = null;
+
+    Promise.all([
+      import("./utils/preloadSceneAssets"),
+      import("./constants"),
+    ]).then(([{ preloadPortfolioAssets }, constants]) => {
+      if (cancelled) return;
+
+      cleanupPreload = preloadPortfolioAssets({
+        technologies: constants.technologies,
+        experiences: constants.experiences,
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      if (cleanupPreload) {
+        cleanupPreload();
+      }
+    };
+  }, [isBootstrapped]);
 
   if (!isBootstrapped) {
     return <Loader />;

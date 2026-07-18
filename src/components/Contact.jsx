@@ -74,7 +74,11 @@ const Contact = () => {
   };
   return (
     <>
-      <StarsBackground />
+      <StarsBackground
+        preloadRootMargin="900px 0px"
+        preloadThreshold={0}
+        preloadDelayMs={0}
+      />
       <div
         className={`relative z-0 lg:mt-0 flex lg:flex-row md:flex-row flex-wrap flex-col-reverse gap-10 justify-center place-content-center big_screen_hidden`}
       >
@@ -198,7 +202,13 @@ const Contact = () => {
           className="xs:hidden lg:flex-1"
         >
           <div className="w-full h-[600px]">
-            <LazyCanvas canvasId="contact-earth" height="100%">
+            <LazyCanvas
+              canvasId="contact-earth"
+              height="100%"
+              preloadRootMargin="900px 0px"
+              preloadThreshold={0}
+              preloadDelayMs={0}
+            >
               {({ active }) => (
                 <Suspense fallback={null}>
                   <EarthCanvas active={active} />

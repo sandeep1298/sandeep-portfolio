@@ -13,6 +13,7 @@ const Navbar = ({ scrolled }) => {
 
   return (
     <nav
+    aria-label="Primary navigation"
     className={`${
       styles.paddingX
     } w-full flex items-center py-5 fixed top-0 z-20  ${
@@ -28,7 +29,7 @@ const Navbar = ({ scrolled }) => {
           window.scrollTo(0, 0);
         }}
       >
-        <img src={logo} alt='logo' className='w-15 h-12 object-contain' loading="eager" />
+        <img src={logo} alt='Sandeep M logo' className='w-15 h-12 object-contain' loading="eager" />
         <p className='text-black  dark:text-white text-[18px] font-bold cursor-pointer flex sm:hidden'>
           Sandeep &nbsp;
           <span className='sm:block hidden'> | Software Developer</span>
@@ -56,6 +57,9 @@ const Navbar = ({ scrolled }) => {
       <div className='sm:flex flex flex-1 gap-6 justify-end lg:hidden xl:hidden md:hidden items-center'>
        <ThemeButton/>
         <button
+    type="button"
+    aria-label={toggle ? "Close navigation menu" : "Open navigation menu"}
+    aria-expanded={toggle}
     onClick={() => setToggle(!toggle)}
     className="p-2 rounded-full transition-colors duration-300 
                bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700"

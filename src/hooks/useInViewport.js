@@ -7,8 +7,12 @@ export function useInViewport({
   threshold = 0.12,
   rootMargin = "0px 0px",
   enterDelayMs = 200,
+  targetRef,
 } = {}) {
-  const ref = useRef(null);
+  const internalRef = useRef(null);
+  const ref = targetRef || internalRef;
+  const visibleRef = useRef(false);
+  const ratioRef = useRef(0);
   const [isVisible, setIsVisible] = useState(false);
   const [intersectionRatio, setIntersectionRatio] = useState(0);
 
@@ -29,19 +33,28 @@ export function useInViewport({
         }
 
         frameId = window.requestAnimationFrame(() => {
-          setIntersectionRatio(ratio);
+          if (ratioRef.current !== ratio) {
+            ratioRef.current = ratio;
+            setIntersectionRatio(ratio);
+          }
 
           if (!intersecting) {
             window.clearTimeout(enterTimeoutId);
             enterTimeoutId = null;
-            setIsVisible(false);
+            if (visibleRef.current) {
+              visibleRef.current = false;
+              setIsVisible(false);
+            }
             frameId = null;
             return;
           }
 
           window.clearTimeout(enterTimeoutId);
           enterTimeoutId = window.setTimeout(() => {
-            setIsVisible(true);
+            if (!visibleRef.current) {
+              visibleRef.current = true;
+              setIsVisible(true);
+            }
           }, enterDelayMs);
 
           frameId = null;
@@ -59,7 +72,7 @@ export function useInViewport({
         window.cancelAnimationFrame(frameId);
       }
     };
-  }, [enterDelayMs, rootMargin, threshold]);
+  }, [enterDelayMs, ref, rootMargin, threshold]);
 
   return { ref, isVisible, intersectionRatio };
 }

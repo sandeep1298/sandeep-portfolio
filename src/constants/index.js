@@ -119,7 +119,7 @@ import {
       company_name: "SWENG Solutions, Bangalore",
       icon: sweng,
       iconBg: "#383E56",
-      date: "September 2020 - July 2021",
+      date: "September 2020 - October 2021",
       points: [
       "Developed a Progressive Web Application (PWA) to support medical aid and disaster relief, enabling streamlined donations for individuals affected by COVID-19 with a fast, mobile-friendly experience."
       ],
@@ -157,7 +157,7 @@ import {
       points: [
         "Modernized the UI of a low-code enterprise platform by building configurable and customizable components, improving usability, performance, and workflow flexibility.",
         "Designed and developed data visualization dashboards using advanced charting techniques, introducing new visual formats that accelerated insights delivery for BI developers.",
-        "Implemented browser-based voice and video calling functionality integrated with SIP servers to enable real-time communication.",
+        "Implemented browser-based real-time voice and video calling using SIP and WebSocket integration, enabling seamless communication directly within the product and eliminating the need for third-party tools.",
         "Delivered hybrid mobile applications by serving web views within Android (APK) and iOS builds, ensuring consistent cross-platform functionality.",
       ],
     }

@@ -12,7 +12,7 @@ const TypewriterText = memo(function TypewriterText() {
   const [text] = useTypewriter({
     words: [
       "Full Stack Engineer",
-      "with 4.3+ years of experience",
+      "with 4.5+ years of experience",
       "in designing, developing, and maintaining scalable web applications.",
     ],
     loop: true,

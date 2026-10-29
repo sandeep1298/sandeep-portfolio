@@ -32,6 +32,9 @@ import {
 // Shown in the Hero typewriter (also update index.html meta + manifest)
 export const yearsOfExperience = 4.3;
 
+// Lives in /public so the URL stays the same; replace the file to update the resume
+export const resume = { href: "/Sandeep-M-Resume.pdf", fileName: "Sandeep-M-Resume.pdf" };
+
 // Shown as the Hero "Core stack" row; names must match entries in `technologies`
 export const coreStack = ["React JS", "NextJS", "TypeScript", "Node JS", "LangChain"];
 
@@ -132,6 +135,7 @@ export const navLinks: NavLink[] = [
    
   ];
   
+  // `skills` order: frontend → backend & data → AI → DevOps & cloud → testing & tooling
   const experiences: Experience[] = [
     {
       title: "Software Intern",
@@ -139,7 +143,7 @@ export const navLinks: NavLink[] = [
       icon: sweng,
       iconBg: "#383E56",
       date: "September 2020 - July 2021",
-      skills: ["React.js", "Node.js", "MongoDB", "HTML5", "CSS"],
+      skills: ["React.js", "HTML5", "CSS", "Node.js", "MongoDB"],
       points: [
       "Developed a Progressive Web Application (PWA) to support medical aid and disaster relief, enabling streamlined donations for individuals affected by COVID-19 with a fast, mobile-friendly experience."
       ],
@@ -150,7 +154,7 @@ export const navLinks: NavLink[] = [
       icon: connect,
       iconBg: "#E6DEDD",
       date: "November 2021 - April 2022",
-      skills: ["React.js", "Redux", "Node.js", "MongoDB", "SQL", "JavaScript", "Webpack", "Sass", "Bootstrap", "Git"],
+      skills: ["React.js", "Redux", "JavaScript", "Sass", "Bootstrap", "Webpack", "Node.js", "MongoDB", "SQL", "Git"],
       points: [
         "Developed an automation platform leveraging Google Cloud Text-to-Speech, enabling customizable audio output via interactive controls for delay, pitch, volume, and speech rate, reducing manual effort in content narration workflows."
       ],
@@ -162,24 +166,30 @@ export const navLinks: NavLink[] = [
       iconBg: "#ffff",
       date: "Feb 2023 - Mar 2025",
       skills: [
+        // Frontend
         "React.js",
         "Next.js",
+        "Redux",
+        "TanStack Query",
         "TypeScript",
+        "JavaScript",
+        "Bootstrap",
+        "styled-components",
+        // Backend & data
         "Node.js",
         "Express.js",
+        "SQL",
+        // AI
         "LangChain",
         "RAG",
         "Vector Databases",
-        "Redux",
-        "SQL",
-        "Jest",
+        // DevOps & cloud
         "Docker",
         "Nginx",
         "Amazon EC2",
         "Amazon S3",
-        "Bootstrap",
-        "styled-components",
-        "JavaScript",
+        // Testing & tooling
+        "Jest",
         "Git",
       ],
       points: [
@@ -196,7 +206,7 @@ export const navLinks: NavLink[] = [
       icon: leader,
       iconBg: "#ffff",
       date: "May 2025 - Dec 2025",
-      skills: ["React.js", "TypeScript", "JavaScript", "LangChain", "WebSocket", "Expo", "Docker", "Grafana"],
+      skills: ["React.js", "Expo", "TypeScript", "JavaScript", "WebSocket", "LangChain", "Docker", "Grafana"],
       points: [
         "Modernized the UI of a low-code enterprise platform by building configurable and customizable components, improving usability, performance, and workflow flexibility.",
         "Built an in-app AI chatbot for Automax 3.0 with RAG and LangChain, giving users instant answers inside the platform.",

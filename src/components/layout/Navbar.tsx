@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaDownload, FaTimes } from "react-icons/fa";
 import { logo } from "../../assets";
+import { resume } from "../../constants";
 import { useScrolledPast } from "../../hooks/useScroll";
 import { useActiveSection } from "../../hooks/useActiveSection";
 import { scrollToTop } from "../../utils/scroll";
@@ -50,7 +51,7 @@ function Navbar() {
       >
         <a href="#" className="flex items-center gap-2" onClick={scrollToTop}>
           <img src={logo} alt="Sandeep M logo" className="h-9 w-9 object-contain sm:h-10 sm:w-10" />
-          <span className="hidden font-display text-[17px] font-bold text-black sm:inline dark:text-white">
+          <span className="hidden font-display text-[17px] font-bold text-black md:inline dark:text-white">
             Sandeep
           </span>
         </a>
@@ -63,6 +64,14 @@ function Navbar() {
             activeId={activeId}
             indicatorId="nav-active-pill"
           />
+          <a
+            href={resume.href}
+            download={resume.fileName}
+            aria-label="Download Resume"
+            className="inline-flex items-center gap-2 rounded-full border border-common_voilet_color/40 px-4 py-2 text-[15px] font-medium text-common_voilet_color transition-colors hover:bg-common_voilet_color hover:text-white dark:text-white"
+          >
+            Resume <FaDownload aria-hidden="true" className="text-xs" />
+          </a>
           <ThemeButton />
         </div>
 
@@ -87,7 +96,7 @@ function Navbar() {
             id="mobile-menu"
             className={`${
               menuOpen ? "flex" : "hidden"
-            } absolute right-0 top-full mt-3 min-w-[200px] rounded-2xl border border-black/10 bg-white p-3 shadow-xl dark:border-white/10 dark:bg-[#0d0b1a]`}
+            } absolute flex-col right-0 top-full mt-3 min-w-[200px] rounded-2xl border border-black/10 bg-white p-3 shadow-xl dark:border-white/10 dark:bg-[#0d0b1a]`}
           >
             <NavLinks
               className="flex w-full flex-col gap-1"
@@ -96,6 +105,16 @@ function Navbar() {
               activeId={activeId}
               onNavigate={closeMenu}
             />
+            <div className="mt-2 border-t border-black/10 pt-2 dark:border-white/10">
+              <a
+                href={resume.href}
+                download={resume.fileName}
+                onClick={closeMenu}
+                className={`${LINK_CLASSES} flex items-center gap-2 rounded-xl px-4 py-2.5 text-[16px] hover:bg-common_voilet_color/10`}
+              >
+                <FaDownload aria-hidden="true" className="text-sm" /> Download Resume
+              </a>
+            </div>
           </div>
         </div>
       </div>

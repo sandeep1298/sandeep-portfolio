@@ -2,7 +2,8 @@ import { lazy, Suspense, useCallback, useEffect, useState, type ChangeEvent, typ
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
-import { FaCheck, FaPaperPlane } from "react-icons/fa";
+import { FaCheck, FaDownload, FaPaperPlane } from "react-icons/fa";
+import { resume } from "../../constants";
 import { slideIn } from "../../utils/motion";
 import { useInViewport } from "../../hooks/useInViewport";
 import Section from "../layout/Section";
@@ -161,6 +162,9 @@ const Contact = () => {
                   Or reach me directly
                 </p>
                 <SocialLinks variant="pill" className="mt-3" />
+                <Button href={resume.href} download={resume.fileName} variant="outline" className="mt-3 w-full">
+                  <FaDownload aria-hidden="true" className="text-sm" /> Download Resume
+                </Button>
               </div>
             </div>
           </div>

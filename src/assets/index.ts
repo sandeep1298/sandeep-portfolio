@@ -18,11 +18,16 @@ import nextjswhite from "./tech/Nextjswhite.png";
 import docker from "./tech/Docker.svg";
 import jest from "./tech/Jest.svg";
 import ec2 from "./tech/aws-ec2.svg";
+import gsap from "./tech/gsap.svg";
+import langchain from "./tech/langchain.svg";
 
 import sweng from "./company/sweng.png";
 import leader from "./company/Leader-logo.png";
 import connect from "./company/konnect-logo.png";
 import jireh from "./company/black-logo.jpg";
+
+import yogaThumb from "./projects/yoga-og-image.jpg";
+import weddingThumb from "./projects/wedding-og-image.jpg";
 
 export {
   logo,
@@ -44,8 +49,12 @@ export {
   docker,
   jest,
   ec2,
+  gsap,
+  langchain,
   sweng,
   leader,
   connect,
   jireh,
+  yogaThumb,
+  weddingThumb,
 };

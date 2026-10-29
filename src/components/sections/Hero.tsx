@@ -72,43 +72,39 @@ const Hero = () => (
     <div
       className={`${styles.paddingX} mx-auto flex max-w-7xl flex-col gap-8 pb-28 pt-28 sm:pt-36 lg:flex-row lg:items-center lg:pt-32`}
     >
-      <div className="flex gap-4 sm:gap-5 lg:w-[55%]">
-        <div className="mt-14 flex flex-col items-center sm:mt-16">
-          <div className="h-5 w-5 rounded-full bg-[#915EFF]" />
-          <div className="violet-gradient h-40 w-1 sm:h-64" />
-        </div>
+      <div className="min-w-0 lg:w-[55%]">
+        <p className={styles.sectionSubText}>
+          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-common_voilet_color" />
+          Full Stack Engineer
+        </p>
 
-        <div className="min-w-0">
-          <p className={styles.sectionSubText}>
-            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-common_voilet_color" />
-            Full Stack Engineer
-          </p>
+        <h1 className={`${styles.heroHeadText} mt-4`}>
+          Hi, I&apos;m <br /> <GradientText>Sandeep M</GradientText>
+        </h1>
+        <TypewriterText />
 
-          <h1 className={`${styles.heroHeadText} mt-4`}>
-            Hi, I&apos;m <br /> <GradientText>Sandeep M</GradientText>
-          </h1>
-          <TypewriterText />
-
-          <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4">
-            <Button href="#work">
+        <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
+          {/* Equal-width pair on phones; if they can't fit side by side, each takes a full row */}
+          <div className="flex flex-wrap gap-3 sm:gap-4">
+            <Button href="#work" className="flex-1 whitespace-nowrap sm:flex-none">
               View my work <FaArrowRight aria-hidden="true" className="text-sm" />
             </Button>
-            <Button href="#contact" variant="outline">
+            <Button href="#contact" variant="outline" className="flex-1 whitespace-nowrap sm:flex-none">
               Get in touch
             </Button>
-            <SocialLinks className="ml-1" />
           </div>
+          <SocialLinks className="border-black/10 sm:border-l sm:pl-6 dark:border-white/10" />
+        </div>
 
-          <div className="mt-8 animate-fade-up border-t border-black/10 pt-6 motion-reduce:animate-none dark:border-white/10">
-            <p className="font-mono text-xs font-medium uppercase tracking-wide text-text2 dark:text-secondary">
-              Core stack
-            </p>
-            <ul className="mt-3 flex flex-wrap gap-2 sm:gap-3">
-              {CORE_STACK.map((tech) => (
-                <TechChip as="li" key={tech.name} size="sm" {...tech} />
-              ))}
-            </ul>
-          </div>
+        <div className="mt-8 animate-fade-up border-t border-black/10 pt-6 motion-reduce:animate-none dark:border-white/10">
+          <p className="font-mono text-xs font-medium uppercase tracking-wide text-text2 dark:text-secondary">
+            Core stack
+          </p>
+          <ul className="mt-3 flex flex-wrap gap-2 sm:gap-3">
+            {CORE_STACK.map((tech) => (
+              <TechChip as="li" key={tech.name} size="sm" {...tech} />
+            ))}
+          </ul>
         </div>
       </div>
 

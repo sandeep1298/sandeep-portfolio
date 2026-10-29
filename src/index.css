@@ -65,10 +65,6 @@ input:-webkit-autofill:focus {
   height: 100lvh;
 }
 
-.violet-gradient {
-  background: linear-gradient(-90deg, #804dee 0%, rgba(60, 51, 80, 0) 100%);
-}
-
 /* ====== Tech marquee ====== */
 .marquee {
   overflow: hidden;

@@ -6,6 +6,7 @@ import type { Experience as ExperienceItem } from "../../types";
 import { fadeIn } from "../../utils/motion";
 import Section from "../layout/Section";
 import SectionHeading from "../ui/SectionHeading";
+import StackTags from "../ui/StackTags";
 
 // Newest first
 const ORDERED_EXPERIENCES = [...experiences].reverse();
@@ -123,6 +124,15 @@ const RoleDetails = memo(function RoleDetails({ experience }: { experience: Expe
           </li>
         ))}
       </ul>
+
+      {experience.skills?.length ? (
+        <div className="mt-6 border-t border-black/10 pt-5 dark:border-white/10">
+          <p className="font-mono text-xs font-medium uppercase tracking-wide text-text2 dark:text-secondary">
+            Tech used
+          </p>
+          <StackTags items={experience.skills} className="mt-3" />
+        </div>
+      ) : null}
     </>
   );
 });

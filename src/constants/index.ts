@@ -1,6 +1,6 @@
 import { FaEnvelope, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
-import type { Experience, NavLink, Project, SocialLink, Technology } from "../types";
+import type { Experience, IndependentBuild, NavLink, Project, SocialLink, Technology } from "../types";
 import {
   javascript,
   typescript,
@@ -23,13 +23,17 @@ import {
   leader,
   jest,
   ec2,
+  gsap,
+  langchain,
+  yogaThumb,
+  weddingThumb,
 } from "../assets";
 
 // Shown in the Hero typewriter (also update index.html meta + manifest)
 export const yearsOfExperience = 4.3;
 
 // Shown as the Hero "Core stack" row; names must match entries in `technologies`
-export const coreStack = ["React JS", "NextJS", "TypeScript", "Node JS", "MongoDB"];
+export const coreStack = ["React JS", "NextJS", "TypeScript", "Node JS", "LangChain"];
 
 export const navLinks: NavLink[] = [
     {
@@ -92,12 +96,20 @@ export const navLinks: NavLink[] = [
       icon: tailwind,
     },
     {
+      name: "GSAP",
+      icon: gsap,
+    },
+    {
       name: "Node JS",
       icon: nodejs,
     },
     {
       name: "MongoDB",
       icon: mongodb,
+    },
+    {
+      name: "LangChain",
+      icon: langchain,
     },
      {
       name: "Jest",
@@ -127,6 +139,7 @@ export const navLinks: NavLink[] = [
       icon: sweng,
       iconBg: "#383E56",
       date: "September 2020 - July 2021",
+      skills: ["React.js", "Node.js", "MongoDB", "HTML5", "CSS"],
       points: [
       "Developed a Progressive Web Application (PWA) to support medical aid and disaster relief, enabling streamlined donations for individuals affected by COVID-19 with a fast, mobile-friendly experience."
       ],
@@ -137,6 +150,7 @@ export const navLinks: NavLink[] = [
       icon: connect,
       iconBg: "#E6DEDD",
       date: "November 2021 - April 2022",
+      skills: ["React.js", "Redux", "Node.js", "MongoDB", "SQL", "JavaScript", "Webpack", "Sass", "Bootstrap", "Git"],
       points: [
         "Developed an automation platform leveraging Google Cloud Text-to-Speech, enabling customizable audio output via interactive controls for delay, pitch, volume, and speech rate, reducing manual effort in content narration workflows."
       ],
@@ -147,6 +161,27 @@ export const navLinks: NavLink[] = [
       icon: jireh,
       iconBg: "#ffff",
       date: "Feb 2023 - Mar 2025",
+      skills: [
+        "React.js",
+        "Next.js",
+        "TypeScript",
+        "Node.js",
+        "Express.js",
+        "LangChain",
+        "RAG",
+        "Vector Databases",
+        "Redux",
+        "SQL",
+        "Jest",
+        "Docker",
+        "Nginx",
+        "Amazon EC2",
+        "Amazon S3",
+        "Bootstrap",
+        "styled-components",
+        "JavaScript",
+        "Git",
+      ],
       points: [
         "Developed a healthcare learning platform for B2C and B2B users with course, sales, and event management features supported by dedicated dashboards, applying performance optimizations targeting Core Web Vitals and SEO improvements that reduced page load time by 35%.",
         "Collaborating with cross-functional teams including designers, and other developers to create high-quality products.",
@@ -161,6 +196,7 @@ export const navLinks: NavLink[] = [
       icon: leader,
       iconBg: "#ffff",
       date: "May 2025 - Dec 2025",
+      skills: ["React.js", "TypeScript", "JavaScript", "LangChain", "WebSocket", "Expo", "Docker", "Grafana"],
       points: [
         "Modernized the UI of a low-code enterprise platform by building configurable and customizable components, improving usability, performance, and workflow flexibility.",
         "Built an in-app AI chatbot for Automax 3.0 with RAG and LangChain, giving users instant answers inside the platform.",
@@ -210,6 +246,29 @@ export const navLinks: NavLink[] = [
     },
   ];
   
+  const independentBuilds: IndependentBuild[] = [
+    {
+      name: "Aarvya Yoga",
+      highlight: "Client pitch",
+      description:
+        "A server-rendered yoga studio site with batch schedules, pricing, gallery, FAQ and one-tap WhatsApp booking, tuned for SEO and zero layout shift.",
+      stack: ["Next.js", "Tailwind CSS", "Radix UI", "Framer Motion"],
+      href: "https://yoga-one-xi.vercel.app/",
+      image: yogaThumb,
+      imageAlt: "Aarvya Yoga website preview: five people meditating on plum mats in a sunlit studio",
+    },
+    {
+      name: "Wedding Invitation",
+      highlight: "400+ guests",
+      description:
+        "A mobile-first invitation in a South Indian traditional design, with scroll-driven storytelling, RSVP, countdown, a scratch card and mini games.",
+      stack: ["Next.js", "GSAP ScrollTrigger", "Lenis"],
+      href: "https://samarth-sahana-wedding.vercel.app/",
+      image: weddingThumb,
+      imageAlt: "Wedding invitation website preview: illustrated bride and groom in traditional South Indian attire",
+    },
+  ];
+
   const socialLinks: SocialLink[] = [
     {
       name: "Email",
@@ -241,4 +300,4 @@ export const navLinks: NavLink[] = [
     },
   ];
 
-  export { technologies, experiences, projects, socialLinks };
+  export { technologies, experiences, projects, independentBuilds, socialLinks };
